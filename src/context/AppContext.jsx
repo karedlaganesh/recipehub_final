@@ -344,7 +344,7 @@ export function AppProvider({ children }) {
     }
     setSubmissions((current) => current.map((item) => item.id === submissionId ? { ...item, status } : item));
     return true;
-  }, [submissions]);
+  }, [session, submissions]);
 
   const saveShoppingList = useCallback((items) => {
     if (session?.role !== 'user' || !Array.isArray(items)) return false;

@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Recipe Hub - Discover, Cook, and Share delicious food recipes from around the world. Search by ingredients, cuisine, and dietary preferences.">
+  <title>Recipe Hub - Discover. Cook. Share.</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Fonts for modern appetizing typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Floating Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- ========================================================================= -->
+  <!-- 1. GLOBAL NAVIGATION HEADER                                              -->
+  <!-- ========================================================================= -->
+  <header class="app-header" id="app-header">
+    <div class="header-inner container">
+      <!-- Recipe Hub Logo (HTML/CSS Chef Hat Icon) -->
+      <a href="#home" class="brand-logo" id="brand-logo-btn" aria-label="Recipe Hub Home">
+        <div class="logo-icon-wrap">
+          <svg class="chef-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/>
+            <line x1="6" y1="17" x2="18" y2="17"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">Recipe Hub</span>
+          <span class="brand-tagline">Discover. Cook. Share.</span>
+        </div>
+      </a>
+
+      <!-- Mobile Hamburger Menu Button -->
+      <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+
+      <!-- Navigation Container -->
+      <nav class="nav-container" id="nav-container">
+        <!-- 1. GUEST / PUBLIC NAVIGATION -->
+        <!-- Links: Home, About, Features, Recipes, Contact, User Module, Admin Module -->
+        <ul class="nav-list" id="public-nav">
+          <li><a href="#home" class="nav-link active" data-route="home">Home</a></li>
+          <li><a href="#about" class="nav-link" data-route="about">About</a></li>
+          <li><a href="#features" class="nav-link" data-route="features">Features</a></li>
+          <li><a href="#recipes" class="nav-link" data-route="recipes">Recipes</a></li>
+          <li><a href="#contact" class="nav-link" data-route="contact">Contact</a></li>
+          <li class="nav-btn-item">
+            <a href="#user-login" class="btn btn-outline-orange nav-btn" data-route="user-login">User</a>
+          </li>
+          <li class="nav-btn-item">
+            <a href="#admin-login" class="btn btn-primary-green nav-btn" data-route="admin-login" id="nav-admin-link">Admin</a>
+          </li>
+        </ul>
+
+        <!-- 2. LOGGED-IN USER NAVIGATION -->
+        <!-- Links: Dashboard, Browse Recipes, Search, Saved Recipes, My Collections, Submit Recipe, Profile, Logout -->
+        <ul class="nav-list hidden" id="user-nav">
+          <li><a href="#user-dashboard" class="nav-link" data-route="user-dashboard">Dashboard</a></li>
+          <li><a href="#recipes" class="nav-link" data-route="recipes">Browse Recipes</a></li>
+          <li><a href="#recipes" class="nav-link" data-route="recipes" id="nav-user-search-link">Search</a></li>
+          <li>
+            <a href="#saved-recipes" class="nav-link" data-route="saved-recipes">
+              Saved Recipes <span class="badge badge-orange" id="saved-count-badge">0</span>
+            </a>
+          </li>
+          <li><a href="#collections" class="nav-link" data-route="collections">My Collections</a></li>
+          <li><a href="#submit-recipe" class="nav-link" data-route="submit-recipe">Submit Recipe</a></li>
+          <li>
+            <button type="button" class="nav-link user-profile-nav-link" id="nav-user-profile-btn">
+              <span class="user-avatar-circle" id="user-avatar-initial">U</span>
+              <span class="user-name-display" id="user-display-name">Profile</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="btn btn-outline-danger btn-sm" id="user-logout-btn">Logout</button>
+          </li>
+        </ul>
+
+        <!-- 3. LOGGED-IN ADMIN NAVIGATION -->
+        <!-- Links: Dashboard, Manage Recipes, Add Recipe, User Submissions, Ratings, Logout -->
+        <ul class="nav-list hidden" id="admin-nav">
+          <li><a href="#admin-dashboard" class="nav-link" data-route="admin-dashboard">Dashboard</a></li>
+          <li><a href="#admin-manage-recipes" class="nav-link" data-route="admin-manage-recipes">Manage Recipes</a></li>
+          <li><a href="#admin-add-recipe" class="nav-link" data-route="admin-add-recipe">Add Recipe</a></li>
+          <li>
+            <a href="#admin-submissions" class="nav-link" data-route="admin-submissions">
+              User Submissions <span class="badge badge-warning" id="admin-pending-badge">0</span>
+            </a>
+          </li>
+          <li><a href="#admin-ratings" class="nav-link" data-route="admin-ratings">Ratings</a></li>
+          <li class="admin-profile-badge">
+            <span class="admin-avatar-circle" id="admin-avatar-initial">A</span>
+            <span class="admin-name-display" id="admin-display-name">Admin</span>
+          </li>
+          <li>
+            <button type="button" class="btn btn-outline-danger btn-sm" id="admin-logout-btn">Logout</button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- MAIN SINGLE-PAGE APPLICATION VIEWS CONTAINER                              -->
+  <!-- ========================================================================= -->
+  <main class="main-content" id="main-content">
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 1: HOME PAGE VIEW                                                  -->
+    <!-- Contains:                                                               -->
+    <!-- - Changing Food Banner Slider (4 slides, auto-play, arrows, dots)       -->
+    <!-- - About Recipe Hub section                                              -->
+    <!-- - 8 Features cards                                                      -->
+    <!-- - User & Admin Module prominent cards                                   -->
+    <!-- - Contact details section (KL University, Vaddeswaram, Andhra Pradesh)  -->
+    <!-- - Footer                                                                -->
+    <!-- ======================================================================= -->
+    <section id="home-view" class="view-section active">
+
+      <!-- 2. CHANGING FOOD HERO BANNER / SLIDER -->
+      <section class="hero-slider-section" id="hero-slider-section" aria-label="Featured Food Banner">
+        <div class="slider-wrapper" id="slider-wrapper">
+          <!-- Slide 1 -->
+          <div class="hero-slide active" data-slide-index="0" style="background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1920&q=80');">
+            <div class="slide-overlay"></div>
+            <div class="container slide-content-container">
+              <div class="slide-content">
+                <span class="slide-badge">🍽️ Culinary Inspiration</span>
+                <h1 class="slide-title">Discover Delicious Recipes</h1>
+                <p class="slide-desc">Find your next favorite meal on Recipe Hub.</p>
+                <div class="slide-btn-group">
+                  <a href="#recipes" class="btn btn-primary-orange btn-lg">Explore Recipes</a>
+                  <a href="#user-login" class="btn btn-outline-white btn-lg">Get Started</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="hero-slide" data-slide-index="1" style="background-image: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1920&q=80');">
+            <div class="slide-overlay"></div>
+            <div class="container slide-content-container">
+              <div class="slide-content">
+                <span class="slide-badge">👨‍🍳 Chef Tested Guides</span>
+                <h1 class="slide-title">Cook Something Amazing</h1>
+                <p class="slide-desc">Simple recipes with easy step-by-step instructions.</p>
+                <div class="slide-btn-group">
+                  <a href="#recipes" class="btn btn-primary-orange btn-lg">Explore Recipes</a>
+                  <a href="#user-login" class="btn btn-outline-white btn-lg">Get Started</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="hero-slide" data-slide-index="2" style="background-image: url('https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1920&q=80');">
+            <div class="slide-overlay"></div>
+            <div class="container slide-content-container">
+              <div class="slide-content">
+                <span class="slide-badge">🥕 Smart Fridge Matcher</span>
+                <h1 class="slide-title">Search By Ingredients</h1>
+                <p class="slide-desc">Tell us what you have in your kitchen and discover what you can cook.</p>
+                <div class="slide-btn-group">
+                  <a href="#recipes" class="btn btn-primary-orange btn-lg">Explore Recipes</a>
+                  <a href="#user-login" class="btn btn-outline-white btn-lg">Get Started</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 4 -->
+          <div class="hero-slide" data-slide-index="3" style="background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1920&q=80');">
+            <div class="slide-overlay"></div>
+            <div class="container slide-content-container">
+              <div class="slide-content">
+                <span class="slide-badge">🌟 Foodie Community</span>
+                <h1 class="slide-title">Share Your Favorite Recipes</h1>
+                <p class="slide-desc">Join our cooking community and share your recipes.</p>
+                <div class="slide-btn-group">
+                  <a href="#recipes" class="btn btn-primary-orange btn-lg">Explore Recipes</a>
+                  <a href="#user-login" class="btn btn-outline-white btn-lg">Get Started</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slider Controls: Previous & Next Arrows -->
+        <button class="slider-arrow slider-arrow-prev" id="slider-prev-btn" aria-label="Previous Slide">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="slider-arrow slider-arrow-next" id="slider-next-btn" aria-label="Next Slide">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+
+        <!-- Slider Dot Indicators -->
+        <div class="slider-dots" id="slider-dots-container" role="tablist" aria-label="Banner slides indicator">
+          <button class="slider-dot active" data-slide-to="0" role="tab" aria-label="Go to slide 1"></button>
+          <button class="slider-dot" data-slide-to="1" role="tab" aria-label="Go to slide 2"></button>
+          <button class="slider-dot" data-slide-to="2" role="tab" aria-label="Go to slide 3"></button>
+          <button class="slider-dot" data-slide-to="3" role="tab" aria-label="Go to slide 4"></button>
+        </div>
+      </section>
+
+      <!-- 3. ABOUT RECIPE HUB SECTION -->
+      <section class="about-section" id="about">
+        <div class="container about-container">
+          <div class="about-image-col">
+            <div class="about-img-frame">
+              <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80" alt="Cooking wholesome food in a modern kitchen" class="about-img" loading="lazy">
+              <div class="about-badge-card">
+                <span class="chef-hat-badge">👨‍🍳</span>
+                <div>
+                  <strong>Curated by Passionate Chefs</strong>
+                  <span class="text-muted">Tested for culinary perfection</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="about-text-col">
+            <span class="section-tag">About Recipe Hub</span>
+            <h2 class="section-title">Welcome to Recipe Hub</h2>
+            <p class="about-paragraph highlight-lead">
+              Recipe Hub is your digital kitchen companion. Discover delicious recipes, search for meals using ingredients you already have, explore different cuisines, save your favorite dishes, rate recipes and share your cooking ideas with others.
+            </p>
+            <p class="about-paragraph">
+              Whether you are an aspiring college cook, a passionate home chef, or someone looking to replicate authentic world-class dishes, Recipe Hub provides step-by-step guidance, ingredient matching, and interactive community moderation.
+            </p>
+            <div class="about-highlights-grid">
+              <div class="highlight-item">
+                <div class="highlight-check">✓</div>
+                <div>
+                  <strong>Smart Ingredient Search</strong>
+                  <p class="text-muted">Search with what you have in your pantry.</p>
+                </div>
+              </div>
+              <div class="highlight-item">
+                <div class="highlight-check">✓</div>
+                <div>
+                  <strong>Curated Cuisines &amp; Diets</strong>
+                  <p class="text-muted">Vegetarian, Vegan, Gluten-Free, Keto &amp; more.</p>
+                </div>
+              </div>
+              <div class="highlight-item">
+                <div class="highlight-check">✓</div>
+                <div>
+                  <strong>Step-by-Step Cooking</strong>
+                  <p class="text-muted">Interactive checklists and clear instructions.</p>
+                </div>
+              </div>
+              <div class="highlight-item">
+                <div class="highlight-check">✓</div>
+                <div>
+                  <strong>Personalized Collections</strong>
+                  <p class="text-muted">Organize bookmarks into themed cookbooks.</p>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top: 24px;">
+              <a href="#recipes" class="btn btn-primary-orange">Browse Recipe Catalog &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. FEATURES SECTION (8 BEAUTIFUL FEATURE CARDS) -->
+      <section class="features-section" id="features">
+        <div class="container">
+          <div class="section-header text-center">
+            <span class="section-tag">Platform Features</span>
+            <h2 class="section-title">Everything You Need to Cook Like a Pro</h2>
+            <p class="section-subtitle">Discover a complete suite of easy, powerful kitchen tools built for everyone.</p>
+          </div>
+          <div class="features-grid">
+            <!-- Feature 1: Search Recipes -->
+            <div class="feature-card">
+              <div class="feature-icon-circle bg-orange-light">🔍</div>
+              <h3 class="feature-title">1. Search Recipes</h3>
+              <p class="feature-text">Search delicious recipes by dish name, cuisine, preparation time, or meal category in real-time.</p>
+            </div>
+
+            <!-- Feature 2: Search by Ingredients -->
+            <div class="feature-card">
+              <div class="feature-icon-circle bg-green-light">🥕</div>
+              <h3 class="feature-title">2. Search by Ingredients</h3>
+              <p class="feature-text">Tell us what you have in your kitchen (e.g. "tomato, onion, rice") and discover what you can cook.</p>
+            </div>
+
+            <!-- Feature 3: Explore Cuisines -->
+            <div class="feature-card">
+              <div class="feature-icon-circle bg-orange-light">🌍</div>
+              <h3 class="feature-title">3. Explore Cuisines</h3>
+              <p class="feature-text">Explore global traditions including Indian, Italian, Chinese, Mexican, American, and Mediterranean dishes.</p>
+            </div>
+
+            <!-- Feature 4: Dietary Preferences -->
+            <div class="feature-card">
+              <div class="feature-icon-circle bg-green-light">🥗</div>
+              <h3 class="feature-title">4. Dietary Preferences</h3>
+              <p class="feature-text">Effortlessly filter for Vegetarian, Vegan, Gluten-Free, Keto, and Non-Vegetarian dishes to fit your health goals.</p>
+            </div>
+
+            <!-- Feature 5: Save Favorites -->
+            <div class="feature-card">
+              <div class="feature-icon-circle bg-orange-light">❤️</div>
+              <h3 class="feature-title">5. Save Favorites</h3>
+              <p class="feature-text">Save your favorite recipes with a single tap to your personal cooklist and access them anytime.</p>
+            </div>
+
+            <!-- Feature 6: Rate Recipes -->
+            <div class="feature-card">
+              <div class="feature-icon-circle bg-yellow-light">⭐</div>
+              <h3 class="feature-title">6. Rate Recipes</h3>
+              <p class="feature-text">Rate dishes on an interactive 5-star scale to help other food lovers discover top-rated meals.</p>
+            </div>
+
+            <!-- Feature 7: Create Collections -->
+            <div class="feature-card">
+              <div class="feature-icon-circle bg-green-light">📚</div>
+              <h3 class="feature-title">7. Create Collections</h3>
+              <p class="feature-text">Organize meals into custom collections like "Weekend Recipes", "Healthy Meals", or "Desserts".</p>
+            </div>
+
+            <!-- Feature 8: Share Recipes -->
+            <div class="feature-card">
+              <div class="feature-icon-circle bg-orange-light">🔗</div>
+              <h3 class="feature-title">8. Share Recipes</h3>
+              <p class="feature-text">Share recipes with friends instantly using the native Web Share API or one-click clipboard copy.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. USER AND ADMIN MODULE SECTION (TWO PROMINENT CARDS) -->
+      <section class="modules-section" id="modules-section">
+        <div class="container">
+          <div class="section-header text-center">
+            <span class="section-tag">Access Portals</span>
+            <h2 class="section-title">Explore Recipe Hub</h2>
+            <p class="section-subtitle">Choose your access mode to explore recipes or manage the platform catalog.</p>
+          </div>
+          <div class="modules-grid">
+            <!-- CARD 1: USER MODULE -->
+            <div class="module-card user-module-card">
+              <div class="module-card-icon-wrap user-theme">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <span class="module-badge">For Food Lovers &amp; Home Cooks</span>
+              <h3 class="module-title">USER</h3>
+              <p class="module-desc">
+                Explore delicious recipes, search by ingredients, save your favorite recipes, rate dishes and create personalized collections.
+              </p>
+              <ul class="module-features-list">
+                <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Discover &amp; search 12+ preloaded world recipes</li>
+                <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Search meals by kitchen ingredients you have</li>
+                <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Save favorites, rate with 5 stars &amp; submit dishes</li>
+              </ul>
+              <div class="module-card-buttons">
+                <a href="#user-login" class="btn btn-primary-orange btn-lg">User Login</a>
+                <a href="registration.html" class="btn btn-outline-orange btn-lg">User Registration</a>
+              </div>
+            </div>
+
+            <!-- CARD 2: ADMIN MODULE -->
+            <div class="module-card admin-module-card">
+              <div class="module-card-icon-wrap admin-theme">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+              </div>
+              <span class="module-badge admin-badge">For Platform &amp; Catalog Managers</span>
+              <h3 class="module-title">ADMIN</h3>
+              <p class="module-desc">
+                Manage recipes, upload new recipes, view ratings, monitor submissions and manage recipe content.
+              </p>
+              <ul class="module-features-list">
+                <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 4 Live Statistics Cards (Recipes, Users, Ratings, Submissions)</li>
+                <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Add, edit, or delete recipes with full CRUD</li>
+                <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Review submissions &amp; view CSS rating breakdown</li>
+              </ul>
+              <div class="module-card-buttons">
+                <a href="#admin-login" class="btn btn-primary-green btn-lg">Admin Login</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FEATURED RECIPES TEASER (ON HOME PAGE) -->
+      <section class="home-featured-section">
+        <div class="container">
+          <div class="section-header-flex">
+            <div>
+              <span class="section-tag">Chef Highlights</span>
+              <h2 class="section-title">Popular Recipes on Recipe Hub</h2>
+              <p class="section-subtitle">A glimpse of community favorites ready to cook today.</p>
+            </div>
+            <a href="#recipes" class="btn btn-outline-orange">View All Recipes &rarr;</a>
+          </div>
+          <div class="recipe-grid" id="home-featured-recipe-grid">
+            <!-- Preloaded dynamically by script.js -->
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. CONTACT US SECTION (KL UNIVERSITY DETAILS) -->
+      <section class="contact-section" id="contact">
+        <div class="container">
+          <div class="contact-card">
+            <div class="contact-text">
+              <span class="section-tag">Contact Us</span>
+              <h2 class="section-title">Get in Touch with Recipe Hub</h2>
+              <p class="contact-desc">Have a recipe recommendation, feedback, or culinary question? Reach out to our team.</p>
+              
+              <div class="contact-info-list">
+                <div class="contact-info-item">
+                  <span class="contact-icon">📍</span>
+                  <div class="contact-info-content">
+                    <strong class="contact-label">Location:</strong>
+                    <div class="contact-location-address">
+                      <span class="contact-place-name">KL University</span><br>
+                      <span>Vaddeswaram, Andhra Pradesh, India</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="contact-info-item">
+                  <span class="contact-icon">✉️</span>
+                  <div class="contact-info-content">
+                    <strong class="contact-label">Email Support:</strong>
+                    <span>support@recipehub.com</span>
+                  </div>
+                </div>
+                <div class="contact-info-item">
+                  <span class="contact-icon">🏫</span>
+                  <div class="contact-info-content">
+                    <strong class="contact-label">Campus Kitchen Community:</strong>
+                    <span>Empowering college students and food lovers to cook smart.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <form class="contact-form" id="contact-form">
+              <h3 class="contact-form-title">Send Us a Message</h3>
+              <div class="form-group">
+                <label for="contact-name">Your Full Name</label>
+                <input type="text" id="contact-name" class="form-control" placeholder="e.g. Rahul Sharma" required>
+              </div>
+              <div class="form-group">
+                <label for="contact-email">Email Address</label>
+                <input type="email" id="contact-email" class="form-control" placeholder="e.g. rahul@example.com" required>
+              </div>
+              <div class="form-group">
+                <label for="contact-message">Your Message or Recipe Suggestion</label>
+                <textarea id="contact-message" class="form-control" rows="3" placeholder="Tell us what you think or what recipe you want added..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary-orange btn-block">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- GLOBAL FOOTER -->
+      <footer class="app-footer">
+        <div class="container footer-container">
+          <div class="footer-brand-col">
+            <div class="brand-logo footer-logo">
+              <div class="logo-icon-wrap">
+                <svg class="chef-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/>
+                  <line x1="6" y1="17" x2="18" y2="17"/>
+                </svg>
+              </div>
+              <div class="brand-text">
+                <span class="brand-name">Recipe Hub</span>
+                <span class="brand-tagline">Discover. Cook. Share.</span>
+              </div>
+            </div>
+            <p class="footer-desc">Your modern kitchen companion. Bringing authentic, delicious, and easy-to-follow recipes to home chefs everywhere.</p>
+          </div>
+          <div class="footer-links-col">
+            <h4 class="footer-title">Quick Links</h4>
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#recipes">Recipes</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-col">
+            <h4 class="footer-title">Modules</h4>
+            <ul>
+              <li><a href="#user-login">User Login</a></li>
+              <li><a href="registration.html">User Registration</a></li>
+              <li><a href="#admin-login">Admin Login</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-col">
+            <h4 class="footer-title">Campus &amp; Location</h4>
+            <p class="text-sm"><strong>KL University</strong></p>
+            <p class="text-sm text-muted">Vaddeswaram, Andhra Pradesh, India</p>
+            <div class="demo-pill-footer">
+              <span class="text-xs">Quick Demo: <code>foodie / password123</code></span>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="container footer-bottom-inner">
+            <p>&copy; Recipe</p>
+            <p class="footer-back-top"><a href="#app-header">Back to Top &uarr;</a></p>
+          </div>
+        </div>
+      </footer>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 2: BROWSE RECIPES VIEW (USER SEARCH, FILTERS & RECIPE CARDS)       -->
+    <!-- ======================================================================= -->
+    <section id="recipes-view" class="view-section recipes-browsing-section">
+      <div class="container">
+        <!-- Section Header -->
+        <div class="section-page-header">
+          <div>
+            <span class="section-tag">Recipe Catalog</span>
+            <h2 class="section-title">Discover &amp; Browse Recipes</h2>
+            <p class="section-subtitle">Search by recipe name, pantry ingredients, cuisine, or dietary guidelines. Click "View Recipe" for complete step-by-step instructions.</p>
+          </div>
+        </div>
+
+        <!-- 9. USER SEARCH & 14. INGREDIENT SEARCH CONTROLS -->
+        <div class="search-filter-card">
+          <!-- Main Search Input -->
+          <div class="search-bar-wrap">
+            <div class="search-input-box">
+              <svg class="search-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="recipe-search-input" class="search-input" placeholder="Search recipes, ingredients or cuisines...">
+              <button type="button" class="search-clear-btn hidden" id="search-clear-btn" aria-label="Clear search">&times;</button>
+            </div>
+            <button class="btn btn-primary-orange search-action-btn" id="recipe-search-btn">Search</button>
+          </div>
+
+          <!-- 14. INGREDIENT SEARCH AREA -->
+          <div class="ingredient-search-box">
+            <div class="ingredient-search-header">
+              <span class="ingredient-search-icon">🥕</span>
+              <div>
+                <strong>Ingredient Search: "What's in your kitchen?"</strong>
+                <p class="text-sm text-muted">Enter ingredients you already have at home (e.g. <code>tomato</code> or <code>tomato, onion, rice</code>)</p>
+              </div>
+            </div>
+            <div class="ingredient-search-input-row">
+              <input type="text" id="ingredient-search-input" class="form-control" placeholder="Enter ingredients separated by commas: e.g. tomato, onion, rice">
+              <button type="button" class="btn btn-primary-green" id="ingredient-find-btn">Find Recipes</button>
+            </div>
+          </div>
+
+          <!-- Filter Dropdowns Row: Cuisine, Diet, Meal Type, Sort -->
+          <div class="filter-dropdowns-row">
+            <!-- Cuisine Filter -->
+            <div class="filter-select-group">
+              <label for="filter-cuisine">Cuisine</label>
+              <select id="filter-cuisine" class="form-select">
+                <option value="all">All Cuisines</option>
+                <option value="Indian">Indian</option>
+                <option value="Italian">Italian</option>
+                <option value="Chinese">Chinese</option>
+                <option value="Mexican">Mexican</option>
+                <option value="American">American</option>
+                <option value="Mediterranean">Mediterranean</option>
+              </select>
+            </div>
+
+            <!-- Dietary Preference Filter -->
+            <div class="filter-select-group">
+              <label for="filter-diet">Dietary Preference</label>
+              <select id="filter-diet" class="form-select">
+                <option value="all">All Diets</option>
+                <option value="Vegetarian">Vegetarian</option>
+                <option value="Vegan">Vegan</option>
+                <option value="Gluten-Free">Gluten-Free</option>
+                <option value="Keto">Keto</option>
+                <option value="Non-Vegetarian">Non-Vegetarian</option>
+              </select>
+            </div>
+
+            <!-- Meal Type Filter -->
+            <div class="filter-select-group">
+              <label for="filter-meal">Meal Type</label>
+              <select id="filter-meal" class="form-select">
+                <option value="all">All Meal Types</option>
+                <option value="Breakfast">Breakfast</option>
+                <option value="Lunch">Lunch</option>
+                <option value="Dinner">Dinner</option>
+                <option value="Dessert">Dessert</option>
+                <option value="Snacks">Snacks</option>
+              </select>
+            </div>
+
+            <!-- Sort By -->
+            <div class="filter-select-group">
+              <label for="filter-sort">Sort By</label>
+              <select id="filter-sort" class="form-select">
+                <option value="highest-rated">Highest Rated ★</option>
+                <option value="most-ratings">Most Reviewed</option>
+                <option value="shortest-prep">Shortest Prep Time</option>
+                <option value="alpha-asc">Name (A &rarr; Z)</option>
+              </select>
+            </div>
+
+            <!-- Reset Filters -->
+            <div class="filter-btn-group">
+              <label>&nbsp;</label>
+              <button class="btn btn-outline-dark btn-block" id="reset-filters-btn">Reset All</button>
+            </div>
+          </div>
+
+          <!-- Active Filter Tags Display -->
+          <div class="active-filter-tags" id="active-filter-tags"></div>
+        </div>
+
+        <!-- Results Counter -->
+        <div class="results-header-row">
+          <h3 class="results-title">
+            Recipe Results <span class="results-count" id="recipes-result-count">(0)</span>
+          </h3>
+          <span class="text-muted text-sm">Showing verified recipes</span>
+        </div>
+
+        <!-- 10. RECIPE CARDS GRID (12+ SAMPLE RECIPES) -->
+        <div class="recipe-grid" id="public-recipe-grid">
+          <!-- Injected dynamically by script.js -->
+        </div>
+
+        <!-- Empty Results Message -->
+        <div class="empty-state-box hidden" id="no-recipes-found">
+          <div class="empty-icon">🍳</div>
+          <h3>No matching recipes found</h3>
+          <p>We couldn't find recipes matching your current search or filter combination. Try clearing some filters or searching for different ingredients!</p>
+          <button class="btn btn-primary-orange" id="clear-search-empty-btn">Clear All Filters</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 3: USER DASHBOARD VIEW (PERSONALIZED WORKSPACE)                    -->
+    <!-- ======================================================================= -->
+    <section id="user-dashboard-view" class="view-section dashboard-section">
+      <div class="container">
+        <!-- Welcome Hero Banner -->
+        <div class="dashboard-welcome-banner">
+          <div class="welcome-text-col">
+            <span class="welcome-tag">Kitchen Workspace</span>
+            <h2 class="welcome-heading" id="user-welcome-headline">Welcome to Recipe Hub, Foodie!</h2>
+            <p class="welcome-subtext">Manage your personal favorites, organized custom collections, and submitted recipes.</p>
+          </div>
+          <div class="welcome-actions-col">
+            <a href="#recipes" class="btn btn-primary-orange">Browse Recipes &rarr;</a>
+            <a href="#submit-recipe" class="btn btn-outline-white">+ Submit Recipe</a>
+          </div>
+        </div>
+
+        <!-- User Quick Stat & Action Cards -->
+        <div class="dashboard-stats-grid">
+          <!-- Card 1: Saved Recipes -->
+          <div class="dash-stat-card">
+            <div class="dash-stat-icon-wrap bg-orange-light">❤️</div>
+            <div class="dash-stat-info">
+              <span class="dash-stat-label">Saved Favorites</span>
+              <span class="dash-stat-num" id="user-stat-saved-count">0</span>
+            </div>
+            <a href="#saved-recipes" class="dash-stat-link">View Saved Recipes &rarr;</a>
+          </div>
+
+          <!-- Card 2: Collections -->
+          <div class="dash-stat-card">
+            <div class="dash-stat-icon-wrap bg-green-light">📚</div>
+            <div class="dash-stat-info">
+              <span class="dash-stat-label">My Collections</span>
+              <span class="dash-stat-num" id="user-stat-col-count">0</span>
+            </div>
+            <a href="#collections" class="dash-stat-link">Manage Collections &rarr;</a>
+          </div>
+
+          <!-- Card 3: Community Submissions -->
+          <div class="dash-stat-card">
+            <div class="dash-stat-icon-wrap bg-yellow-light">📝</div>
+            <div class="dash-stat-info">
+              <span class="dash-stat-label">Submit a Recipe</span>
+              <span class="dash-stat-num">+ Share</span>
+            </div>
+            <a href="#submit-recipe" class="dash-stat-link">Share Your Recipe &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Dashboard Recent Favorites Preview -->
+        <div class="dashboard-section-block">
+          <div class="section-header-flex">
+            <div>
+              <h3 class="results-title">Your Saved Highlights</h3>
+              <p class="text-muted text-sm">Quick access to the dishes you love.</p>
+            </div>
+            <a href="#saved-recipes" class="btn btn-outline-orange btn-sm">See All Saved &rarr;</a>
+          </div>
+          <div class="recipe-grid" id="dash-saved-preview-grid">
+            <!-- Loaded by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 4: 12. SAVED RECIPES VIEW (USER ONLY)                              -->
+    <!-- ======================================================================= -->
+    <section id="saved-recipes-view" class="view-section saved-section">
+      <div class="container">
+        <div class="section-page-header">
+          <div>
+            <span class="section-tag">Personal Cooklist</span>
+            <h2 class="section-title">Saved Recipes</h2>
+            <p class="section-subtitle">Your saved dishes ready whenever hunger strikes. Remove any recipe or jump straight into cooking.</p>
+          </div>
+          <a href="#recipes" class="btn btn-primary-orange">Browse More Recipes</a>
+        </div>
+
+        <!-- Saved Recipes Grid -->
+        <div class="recipe-grid" id="saved-recipe-grid">
+          <!-- Dynamic cards injected by script.js -->
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state-box hidden" id="no-saved-recipes">
+          <div class="empty-icon">❤️</div>
+          <h3>No saved recipes yet.</h3>
+          <p>You haven't saved any recipes yet. Browse recipes and click the Save button to add dishes to your personal list!</p>
+          <a href="#recipes" class="btn btn-primary-orange">Browse Recipes</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 5: 15. MY COLLECTIONS VIEW (USER ONLY)                             -->
+    <!-- ======================================================================= -->
+    <section id="collections-view" class="view-section collections-section">
+      <div class="container">
+        <!-- All Collections Overview -->
+        <div id="collections-main-container">
+          <div class="section-page-header">
+            <div>
+              <span class="section-tag">Personalized Folders</span>
+              <h2 class="section-title">My Collections</h2>
+              <p class="section-subtitle">Organize your favorite recipes into themed collections like "My Favorites", "Healthy Recipes", "Weekend Recipes", "Family Favorites", and "Desserts".</p>
+            </div>
+            <button type="button" class="btn btn-primary-orange" id="open-new-collection-modal-btn">+ Create Collection</button>
+          </div>
+
+          <!-- Collections Grid -->
+          <div class="collections-grid" id="collections-cards-grid">
+            <!-- Injected by script.js -->
+          </div>
+
+          <!-- Empty State -->
+          <div class="empty-state-box hidden" id="no-collections-msg">
+            <div class="empty-icon">📚</div>
+            <h3>No collections yet</h3>
+            <p>Collections let you group recipes for family dinners, meal prep, or special occasions. Create your first collection now!</p>
+            <button type="button" class="btn btn-primary-orange" id="create-first-collection-btn">Create Collection</button>
+          </div>
+        </div>
+
+        <!-- Single Collection Drill-Down View -->
+        <div id="single-collection-drilldown" class="hidden">
+          <div class="collection-drilldown-header">
+            <button type="button" class="btn btn-outline-dark btn-sm" id="back-to-all-collections-btn">&larr; Back to Collections</button>
+            <div class="drilldown-title-box">
+              <h2 class="drilldown-title" id="drilldown-collection-name">Collection Name</h2>
+              <p class="drilldown-desc" id="drilldown-collection-desc">Description</p>
+            </div>
+            <div class="drilldown-actions">
+              <button type="button" class="btn btn-outline-danger btn-sm" id="delete-current-collection-btn">Delete Collection</button>
+            </div>
+          </div>
+
+          <div class="recipe-grid" id="single-collection-recipe-grid">
+            <!-- Recipes in collection injected by script.js -->
+          </div>
+
+          <div class="empty-state-box hidden" id="empty-collection-drilldown">
+            <div class="empty-icon">🍳</div>
+            <h3>This collection is empty</h3>
+            <p>Browse recipes and click "Add to Collection" to populate this cookbook folder.</p>
+            <a href="#recipes" class="btn btn-primary-orange">Browse Recipes</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 6: 16. SUBMIT RECIPE VIEW (USER ONLY)                              -->
+    <!-- ======================================================================= -->
+    <section id="submit-recipe-view" class="view-section submit-section">
+      <div class="container form-max-container">
+        <div class="form-page-card">
+          <div class="form-page-header">
+            <span class="section-tag">Community Kitchen</span>
+            <h2 class="form-page-title">Submit Recipe</h2>
+            <p class="form-page-subtitle">
+              Share your favorite culinary creation with thousands of food lovers! After submission, it will be placed in "Pending Approval" status for admin review.
+            </p>
+          </div>
+
+          <form id="user-submit-recipe-form" novalidate>
+            <!-- Recipe Name -->
+            <div class="form-group">
+              <label for="sub-recipe-name">Recipe Name <span class="required">*</span></label>
+              <input type="text" id="sub-recipe-name" class="form-control" placeholder="e.g. Creamy Tuscan Garlic Chicken" required>
+              <span class="field-error" id="sub-name-error"></span>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+              <label for="sub-recipe-desc">Description <span class="required">*</span></label>
+              <textarea id="sub-recipe-desc" class="form-control" rows="2" placeholder="Briefly describe what makes this recipe delicious..." required></textarea>
+              <span class="field-error" id="sub-desc-error"></span>
+            </div>
+
+            <!-- Cuisine & Meal Type Row -->
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="sub-recipe-cuisine">Cuisine <span class="required">*</span></label>
+                <select id="sub-recipe-cuisine" class="form-select" required>
+                  <option value="">Select Cuisine</option>
+                  <option value="Indian">Indian</option>
+                  <option value="Italian">Italian</option>
+                  <option value="Chinese">Chinese</option>
+                  <option value="Mexican">Mexican</option>
+                  <option value="American">American</option>
+                  <option value="Mediterranean">Mediterranean</option>
+                </select>
+                <span class="field-error" id="sub-cuisine-error"></span>
+              </div>
+              <div class="form-group">
+                <label for="sub-recipe-meal">Meal Type <span class="required">*</span></label>
+                <select id="sub-recipe-meal" class="form-select" required>
+                  <option value="">Select Meal Type</option>
+                  <option value="Breakfast">Breakfast</option>
+                  <option value="Lunch">Lunch</option>
+                  <option value="Dinner">Dinner</option>
+                  <option value="Dessert">Dessert</option>
+                  <option value="Snacks">Snacks</option>
+                </select>
+                <span class="field-error" id="sub-meal-error"></span>
+              </div>
+            </div>
+
+            <!-- Dietary Preference & Difficulty Row -->
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="sub-recipe-diet">Dietary Preference <span class="required">*</span></label>
+                <select id="sub-recipe-diet" class="form-select" required>
+                  <option value="">Select Dietary Preference</option>
+                  <option value="Vegetarian">Vegetarian</option>
+                  <option value="Vegan">Vegan</option>
+                  <option value="Gluten-Free">Gluten-Free</option>
+                  <option value="Keto">Keto</option>
+                  <option value="Non-Vegetarian">Non-Vegetarian</option>
+                </select>
+                <span class="field-error" id="sub-diet-error"></span>
+              </div>
+              <div class="form-group">
+                <label for="sub-recipe-difficulty">Difficulty <span class="required">*</span></label>
+                <select id="sub-recipe-difficulty" class="form-select" required>
+                  <option value="Easy">Easy</option>
+                  <option value="Medium" selected>Medium</option>
+                  <option value="Hard">Hard</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Preparation Time, Cooking Time, Servings Row -->
+            <div class="form-row-3">
+              <div class="form-group">
+                <label for="sub-recipe-prep">Preparation Time (mins) <span class="required">*</span></label>
+                <input type="number" id="sub-recipe-prep" class="form-control" min="1" max="600" placeholder="15" required>
+                <span class="field-error" id="sub-prep-error"></span>
+              </div>
+              <div class="form-group">
+                <label for="sub-recipe-cook">Cooking Time (mins) <span class="required">*</span></label>
+                <input type="number" id="sub-recipe-cook" class="form-control" min="0" max="600" placeholder="25" required>
+                <span class="field-error" id="sub-cook-error"></span>
+              </div>
+              <div class="form-group">
+                <label for="sub-recipe-servings">Servings <span class="required">*</span></label>
+                <input type="number" id="sub-recipe-servings" class="form-control" min="1" max="50" placeholder="4" required>
+                <span class="field-error" id="sub-servings-error"></span>
+              </div>
+            </div>
+
+            <!-- Image URL with Live Test Preview -->
+            <div class="form-group">
+              <label for="sub-recipe-image">Image URL <span class="required">*</span></label>
+              <div class="image-input-wrap">
+                <input type="url" id="sub-recipe-image" class="form-control" placeholder="https://images.unsplash.com/photo-..." required>
+                <button type="button" class="btn btn-outline-dark btn-sm" id="sub-test-img-btn">Test Image</button>
+              </div>
+              <small class="form-hint">Tip: Paste an Unsplash or direct web image link.</small>
+              <div class="image-preview-box hidden" id="sub-image-preview-container">
+                <img id="sub-image-preview" src="" alt="Recipe Preview" class="image-preview-thumb">
+                <span class="text-sm text-green">✓ Valid image preview!</span>
+              </div>
+              <span class="field-error" id="sub-image-error"></span>
+            </div>
+
+            <!-- Ingredients (Newline separated) -->
+            <div class="form-group">
+              <label for="sub-recipe-ingredients">Ingredients (One per line) <span class="required">*</span></label>
+              <textarea id="sub-recipe-ingredients" class="form-control" rows="5" placeholder="500g Chicken breast&#10;2 tbsp Olive oil&#10;3 cloves Garlic, minced&#10;1 cup Heavy cream&#10;Fresh spinach &amp; sun-dried tomatoes" required></textarea>
+              <small class="form-hint">Write each ingredient on a new line with quantity.</small>
+              <span class="field-error" id="sub-ingredients-error"></span>
+            </div>
+
+            <!-- Cooking Instructions (Newline separated) -->
+            <div class="form-group">
+              <label for="sub-recipe-instructions">Cooking Instructions (Step-by-Step, One per line) <span class="required">*</span></label>
+              <textarea id="sub-recipe-instructions" class="form-control" rows="6" placeholder="Prepare all ingredients.&#10;Heat the pan and add the required ingredients.&#10;Cook according to the recipe instructions.&#10;Garnish with fresh herbs and serve hot." required></textarea>
+              <small class="form-hint">Each line creates a numbered step. Add an optional estimate like “Wash vegetables — 5 min” to show a step duration.</small>
+              <span class="field-error" id="sub-instructions-error"></span>
+            </div>
+
+            <div class="form-actions-row">
+              <button type="submit" class="btn btn-primary-orange btn-lg" id="submit-recipe-action-btn">
+                Submit Recipe
+              </button>
+              <a href="#user-dashboard" class="btn btn-outline-dark">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 7: 7. USER LOGIN VIEW                                              -->
+    <!-- ======================================================================= -->
+    <section id="user-login-view" class="view-section auth-section">
+      <div class="container auth-container">
+        <div class="auth-card">
+          <div class="auth-header">
+            <div class="auth-icon-wrap user-theme">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+            <h2 class="auth-title">User Login</h2>
+            <p class="auth-subtitle">Sign in to save favorite recipes, rate dishes, and create personalized collections.</p>
+          </div>
+
+          <!-- Demo Helper -->
+          <div class="demo-helper-box">
+            <span>Demo User:</span>
+            <code>foodie / password123</code>
+            <button type="button" class="btn-demo-fill" id="fill-demo-user-btn">Auto-Fill</button>
+          </div>
+
+          <form id="user-login-form" novalidate>
+            <div class="form-group">
+              <label for="user-login-id">Username or Email <span class="required">*</span></label>
+              <input type="text" id="user-login-id" class="form-control" placeholder="Enter username or email" required autocomplete="username">
+              <span class="field-error" id="user-login-id-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="user-login-pass">Password <span class="required">*</span></label>
+              <div class="input-password-wrap">
+                <input type="password" id="user-login-pass" class="form-control" placeholder="Enter password" required autocomplete="current-password">
+                <button type="button" class="toggle-password-btn" data-target="user-login-pass" aria-label="Toggle password visibility">👁️</button>
+              </div>
+              <span class="field-error" id="user-login-pass-error"></span>
+            </div>
+            <button type="submit" class="btn btn-primary-orange btn-block btn-lg">Login</button>
+          </form>
+
+          <div class="auth-footer">
+            <p>Don't have an account? <a href="registration.html" class="text-orange font-bold">Register</a></p>
+            <p><a href="#home">&larr; Back to Home</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 8: 7. ADMIN LOGIN VIEW                                             -->
+    <!-- ======================================================================= -->
+    <section id="admin-login-view" class="view-section auth-section">
+      <div class="container auth-container">
+        <div class="auth-card admin-auth-card">
+          <div class="auth-header">
+            <div class="auth-icon-wrap admin-theme">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <h2 class="auth-title">Admin Login</h2>
+            <p class="auth-subtitle">Restricted access to manage recipes, monitor submissions, and view rating analytics.</p>
+          </div>
+
+          <!-- Demo Admin Helper -->
+          <div class="demo-helper-box admin-demo-helper">
+            <span>Demo Admin:</span>
+            <code>admin / admin123</code>
+            <button type="button" class="btn-demo-fill admin-fill-btn" id="fill-demo-admin-btn">Auto-Fill</button>
+          </div>
+
+          <form id="admin-login-form" novalidate>
+            <div class="form-group">
+              <label for="admin-login-id">Username or Email <span class="required">*</span></label>
+              <input type="text" id="admin-login-id" class="form-control" placeholder="Enter admin username or email" required autocomplete="username">
+              <span class="field-error" id="admin-login-id-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="admin-login-pass">Password <span class="required">*</span></label>
+              <div class="input-password-wrap">
+                <input type="password" id="admin-login-pass" class="form-control" placeholder="Enter admin password" required autocomplete="current-password">
+                <button type="button" class="toggle-password-btn" data-target="admin-login-pass" aria-label="Toggle password visibility">👁️</button>
+              </div>
+              <span class="field-error" id="admin-login-pass-error"></span>
+            </div>
+            <button type="submit" class="btn btn-primary-green btn-block btn-lg">Login</button>
+          </form>
+
+          <div class="auth-footer">
+            <p><a href="#home">&larr; Back to Home</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 9: 17. ADMIN DASHBOARD VIEW (STATISTICS & SNAPSHOTS)               -->
+    <!-- ======================================================================= -->
+    <section id="admin-dashboard-view" class="view-section admin-section">
+      <div class="container">
+        <!-- Admin Dashboard Header -->
+        <div class="admin-dashboard-header">
+          <div>
+            <span class="admin-badge-pill">Administrator Console</span>
+            <h2 class="admin-heading" id="admin-welcome-headline">Admin Dashboard</h2>
+            <p class="admin-subtext">Manage recipes, upload new recipes, view ratings, monitor submissions and manage recipe content.</p>
+          </div>
+          <div class="admin-header-actions">
+            <a href="#admin-add-recipe" class="btn btn-primary-green">+ Add Recipe</a>
+            <a href="#admin-submissions" class="btn btn-outline-dark">User Submissions</a>
+          </div>
+        </div>
+
+        <!-- 17. 4 STATISTICS CARDS -->
+        <div class="stats-grid">
+          <!-- Stat 1: TOTAL RECIPES -->
+          <div class="stat-card">
+            <div class="stat-card-icon-wrap stat-icon-orange">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+              </svg>
+            </div>
+            <div class="stat-card-content">
+              <span class="stat-card-title">TOTAL RECIPES</span>
+              <span class="stat-card-value" id="stat-total-recipes">0</span>
+              <span class="stat-card-footnote">Active in catalog</span>
+            </div>
+          </div>
+
+          <!-- Stat 2: TOTAL USERS -->
+          <div class="stat-card">
+            <div class="stat-card-icon-wrap stat-icon-blue">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <div class="stat-card-content">
+              <span class="stat-card-title">TOTAL USERS</span>
+              <span class="stat-card-value" id="stat-total-users">0</span>
+              <span class="stat-card-footnote">Registered home cooks</span>
+            </div>
+          </div>
+
+          <!-- Stat 3: TOTAL RATINGS -->
+          <div class="stat-card">
+            <div class="stat-card-icon-wrap stat-icon-yellow">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+            </div>
+            <div class="stat-card-content">
+              <span class="stat-card-title">TOTAL RATINGS</span>
+              <span class="stat-card-value" id="stat-total-ratings">0</span>
+              <span class="stat-card-footnote">Community reviews</span>
+            </div>
+          </div>
+
+          <!-- Stat 4: PENDING SUBMISSIONS -->
+          <div class="stat-card">
+            <div class="stat-card-icon-wrap stat-icon-red">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <div class="stat-card-content">
+              <span class="stat-card-title">PENDING SUBMISSIONS</span>
+              <span class="stat-card-value" id="stat-pending-submissions">0</span>
+              <span class="stat-card-footnote" id="stat-pending-footnote">Awaiting review</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Quick Overview Cards -->
+        <div class="admin-dash-grid">
+          <!-- Pending Submissions Snapshot -->
+          <div class="admin-panel-card">
+            <div class="admin-panel-header">
+              <h3>Recent User Submissions</h3>
+              <a href="#admin-submissions" class="text-sm text-green font-bold">View Submissions &rarr;</a>
+            </div>
+            <div id="admin-recent-submissions-list">
+              <!-- Injected by script.js -->
+            </div>
+          </div>
+
+          <!-- Top Rated Catalog Snapshot -->
+          <div class="admin-panel-card">
+            <div class="admin-panel-header">
+              <h3>Top Rated Recipes Snapshot</h3>
+              <a href="#admin-ratings" class="text-sm text-green font-bold">View Ratings &rarr;</a>
+            </div>
+            <div id="admin-top-recipes-list">
+              <!-- Injected by script.js -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 10: 19. ADMIN MANAGE RECIPES VIEW                                  -->
+    <!-- ======================================================================= -->
+    <section id="admin-manage-recipes-view" class="view-section admin-section">
+      <div class="container">
+        <div class="section-page-header">
+          <div>
+            <span class="admin-badge-pill">Catalog Management</span>
+            <h2 class="section-title">Manage Recipes</h2>
+            <p class="section-subtitle">View, edit, or delete recipes currently published in the catalog.</p>
+          </div>
+          <a href="#admin-add-recipe" class="btn btn-primary-green">+ Add Recipe</a>
+        </div>
+
+        <!-- Recipe Filter Toolbar -->
+        <div class="admin-table-toolbar">
+          <div class="search-input-box table-search-box">
+            <input type="text" id="admin-recipe-table-search" class="search-input" placeholder="Search recipe by name or cuisine...">
+          </div>
+          <select id="admin-table-cuisine-filter" class="form-select select-inline">
+            <option value="all">All Cuisines</option>
+            <option value="Indian">Indian</option>
+            <option value="Italian">Italian</option>
+            <option value="Chinese">Chinese</option>
+            <option value="Mexican">Mexican</option>
+            <option value="American">American</option>
+            <option value="Mediterranean">Mediterranean</option>
+          </select>
+        </div>
+
+        <!-- Table Display: Recipe name, Cuisine, Category, Rating, Status, Actions (View, Edit, Delete) -->
+        <div class="table-responsive-wrapper">
+          <table class="data-table" id="admin-recipes-table">
+            <thead>
+              <tr>
+                <th style="width: 80px;">Image</th>
+                <th>Recipe Name</th>
+                <th>Cuisine</th>
+                <th>Category</th>
+                <th>Rating</th>
+                <th>Status</th>
+                <th style="width: 190px;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-recipe-table-body">
+              <!-- Rendered dynamically by script.js -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Empty Table Notification -->
+        <div class="empty-state-box hidden" id="admin-empty-table-msg">
+          <div class="empty-icon">📂</div>
+          <h3>No recipes match your filter</h3>
+          <p>Try searching for a different keyword or adding a new recipe.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 11: 18. ADMIN ADD / UPLOAD RECIPE VIEW                             -->
+    <!-- ======================================================================= -->
+    <section id="admin-add-recipe-view" class="view-section admin-section">
+      <div class="container form-max-container">
+        <div class="form-page-card">
+          <div class="form-page-header">
+            <span class="admin-badge-pill">Admin Upload</span>
+            <h2 class="form-page-title">Add Recipe</h2>
+            <p class="form-page-subtitle">
+              Upload a new recipe to Recipe Hub. After adding, the recipe will immediately appear in the user recipe list.
+            </p>
+          </div>
+
+          <form id="admin-add-recipe-form" novalidate>
+            <!-- Recipe Name -->
+            <div class="form-group">
+              <label for="admin-recipe-name">Recipe Name <span class="required">*</span></label>
+              <input type="text" id="admin-recipe-name" class="form-control" placeholder="e.g. Classic Margherita Pizza" required>
+              <span class="field-error" id="admin-name-error"></span>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+              <label for="admin-recipe-desc">Description <span class="required">*</span></label>
+              <textarea id="admin-recipe-desc" class="form-control" rows="2" placeholder="Summary of flavors, aromas, and preparation highlights..." required></textarea>
+              <span class="field-error" id="admin-desc-error"></span>
+            </div>
+
+            <!-- Cuisine & Meal Type Row -->
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="admin-recipe-cuisine">Cuisine <span class="required">*</span></label>
+                <select id="admin-recipe-cuisine" class="form-select" required>
+                  <option value="">Select Cuisine</option>
+                  <option value="Indian">Indian</option>
+                  <option value="Italian">Italian</option>
+                  <option value="Chinese">Chinese</option>
+                  <option value="Mexican">Mexican</option>
+                  <option value="American">American</option>
+                  <option value="Mediterranean">Mediterranean</option>
+                </select>
+                <span class="field-error" id="admin-cuisine-error"></span>
+              </div>
+              <div class="form-group">
+                <label for="admin-recipe-meal">Meal Type <span class="required">*</span></label>
+                <select id="admin-recipe-meal" class="form-select" required>
+                  <option value="">Select Meal Type</option>
+                  <option value="Breakfast">Breakfast</option>
+                  <option value="Lunch">Lunch</option>
+                  <option value="Dinner">Dinner</option>
+                  <option value="Dessert">Dessert</option>
+                  <option value="Snacks">Snacks</option>
+                </select>
+                <span class="field-error" id="admin-meal-error"></span>
+              </div>
+            </div>
+
+            <!-- Dietary Preference & Difficulty Row -->
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="admin-recipe-diet">Dietary Preference <span class="required">*</span></label>
+                <select id="admin-recipe-diet" class="form-select" required>
+                  <option value="">Select Dietary Preference</option>
+                  <option value="Vegetarian">Vegetarian</option>
+                  <option value="Vegan">Vegan</option>
+                  <option value="Gluten-Free">Gluten-Free</option>
+                  <option value="Keto">Keto</option>
+                  <option value="Non-Vegetarian">Non-Vegetarian</option>
+                </select>
+                <span class="field-error" id="admin-diet-error"></span>
+              </div>
+              <div class="form-group">
+                <label for="admin-recipe-difficulty">Difficulty <span class="required">*</span></label>
+                <select id="admin-recipe-difficulty" class="form-select" required>
+                  <option value="Easy">Easy</option>
+                  <option value="Medium" selected>Medium</option>
+                  <option value="Hard">Hard</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Preparation Time, Cooking Time, Servings Row -->
+            <div class="form-row-3">
+              <div class="form-group">
+                <label for="admin-recipe-prep">Preparation Time (mins) <span class="required">*</span></label>
+                <input type="number" id="admin-recipe-prep" class="form-control" min="1" max="600" placeholder="20" required>
+                <span class="field-error" id="admin-prep-error"></span>
+              </div>
+              <div class="form-group">
+                <label for="admin-recipe-cook">Cooking Time (mins) <span class="required">*</span></label>
+                <input type="number" id="admin-recipe-cook" class="form-control" min="0" max="600" placeholder="30" required>
+                <span class="field-error" id="admin-cook-error"></span>
+              </div>
+              <div class="form-group">
+                <label for="admin-recipe-servings">Servings <span class="required">*</span></label>
+                <input type="number" id="admin-recipe-servings" class="form-control" min="1" max="50" placeholder="4" required>
+                <span class="field-error" id="admin-servings-error"></span>
+              </div>
+            </div>
+
+            <!-- Image URL with Test Preview -->
+            <div class="form-group">
+              <label for="admin-recipe-image">Image URL <span class="required">*</span></label>
+              <div class="image-input-wrap">
+                <input type="url" id="admin-recipe-image" class="form-control" placeholder="https://images.unsplash.com/photo-..." required>
+                <button type="button" class="btn btn-outline-dark btn-sm" id="admin-test-img-btn">Test Image</button>
+              </div>
+              <div class="image-preview-box hidden" id="admin-image-preview-container">
+                <img id="admin-image-preview" src="" alt="Recipe Preview" class="image-preview-thumb">
+                <span class="text-sm text-green">✓ Valid Image URL!</span>
+              </div>
+              <span class="field-error" id="admin-image-error"></span>
+            </div>
+
+            <!-- Ingredients -->
+            <div class="form-group">
+              <label for="admin-recipe-ingredients">Ingredients (One per line) <span class="required">*</span></label>
+              <textarea id="admin-recipe-ingredients" class="form-control" rows="5" placeholder="500g Fresh Chicken&#10;2 cups Basmati Rice&#10;1 cup Plain Yogurt&#10;2 tbsp Biryani Masala" required></textarea>
+              <span class="field-error" id="admin-ingredients-error"></span>
+            </div>
+
+            <!-- Instructions -->
+            <div class="form-group">
+              <label for="admin-recipe-instructions">Cooking Instructions (Step-by-Step, One per line) <span class="required">*</span></label>
+              <textarea id="admin-recipe-instructions" class="form-control" rows="6" placeholder="Prepare all ingredients.&#10;Heat the pan and add the required ingredients.&#10;Cook according to the recipe instructions." required></textarea>
+              <small class="form-hint">Add an optional duration to a step with “ — 5 min”. Steps without a duration show “Time not specified.”</small>
+              <span class="field-error" id="admin-instructions-error"></span>
+            </div>
+
+            <div class="form-actions-row">
+              <button type="submit" class="btn btn-primary-green btn-lg">Add Recipe</button>
+              <a href="#admin-manage-recipes" class="btn btn-outline-dark">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 12: 20. ADMIN USER SUBMISSIONS VIEW                                -->
+    <!-- ======================================================================= -->
+    <section id="admin-submissions-view" class="view-section admin-section">
+      <div class="container">
+        <div class="section-page-header">
+          <div>
+            <span class="admin-badge-pill">Community Submissions</span>
+            <h2 class="section-title">User Submissions</h2>
+            <p class="section-subtitle">Review recipes submitted by users. When approved, the recipe immediately becomes visible in the user recipe list.</p>
+          </div>
+          <div class="submissions-filter-pills" id="submissions-filter-pills">
+            <button type="button" class="pill-btn active" data-sub-filter="all">All</button>
+            <button type="button" class="pill-btn" data-sub-filter="pending">Pending Approval</button>
+            <button type="button" class="pill-btn" data-sub-filter="approved">Approved</button>
+            <button type="button" class="pill-btn" data-sub-filter="rejected">Rejected</button>
+          </div>
+        </div>
+
+        <!-- Table Display: Recipe name, Submitted by, Date, Status, Actions (Approve, Reject, View) -->
+        <div class="table-responsive-wrapper">
+          <table class="data-table" id="admin-submissions-table">
+            <thead>
+              <tr>
+                <th>Recipe Name</th>
+                <th>Submitted By</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th style="width: 230px;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-submissions-table-body">
+              <!-- Rendered dynamically by script.js -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Empty Submissions State -->
+        <div class="empty-state-box hidden" id="no-submissions-msg">
+          <div class="empty-icon">📬</div>
+          <h3>No submissions found</h3>
+          <p>There are currently no recipes in this submission filter.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 13: 21. ADMIN RATINGS & DISTRIBUTION VIEW                          -->
+    <!-- ======================================================================= -->
+    <section id="admin-ratings-view" class="view-section admin-section">
+      <div class="container">
+        <div class="section-page-header">
+          <div>
+            <span class="admin-badge-pill">Community Ratings</span>
+            <h2 class="section-title">Recipe Ratings &amp; Distribution</h2>
+            <p class="section-subtitle">Displaying average ratings, total review counts, and CSS rating distribution bars (5 Stars down to 1 Star).</p>
+          </div>
+        </div>
+
+        <!-- Ratings Cards Grid with CSS Distribution Bars -->
+        <div class="ratings-cards-grid" id="admin-ratings-container">
+          <!-- Injected dynamically by script.js -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- MODALS & POPUPS                                                           -->
+  <!-- ========================================================================= -->
+
+  <!-- 11. RECIPE DETAILS MODAL (POPUP ON "VIEW RECIPE") -->
+  <div class="modal-overlay hidden" id="recipe-details-modal" role="dialog" aria-modal="true" aria-labelledby="detail-modal-title">
+    <div class="modal-card modal-xl">
+      <div class="modal-header">
+        <h3 class="modal-title" id="detail-modal-title">Recipe Details</h3>
+        <button type="button" class="modal-close-btn" id="recipe-details-close-btn" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body modal-scroll-body" id="recipe-details-modal-body">
+        <!-- Rendered dynamically by script.js:
+             - Large food image
+             - Recipe name
+             - Description
+             - Cuisine, Meal type, Dietary preference
+             - Prep time, Cooking time, Servings, Difficulty, Rating
+             - INGREDIENTS list with checkable boxes
+             - INSTRUCTIONS step-by-step
+        -->
+      </div>
+      <div class="modal-footer" id="recipe-details-modal-footer">
+        <!-- Buttons: Save Recipe, Rate Recipe, Share Recipe -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 13. INTERACTIVE 5-STAR RATING MODAL -->
+  <div class="modal-overlay hidden" id="rating-modal" role="dialog" aria-modal="true" aria-labelledby="rating-modal-title">
+    <div class="modal-card modal-sm text-center">
+      <div class="modal-header">
+        <h3 class="modal-title" id="rating-modal-title">Rate Recipe</h3>
+        <button type="button" class="modal-close-btn" id="rating-modal-close-btn" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4 id="rating-recipe-name" class="modal-recipe-headline">Recipe Name</h4>
+        <p class="text-muted text-sm" style="margin-bottom: 16px;">How was your cooking experience?</p>
+
+        <!-- 5-Star Interactive Rating Widget -->
+        <div class="interactive-star-rating" id="interactive-star-picker" role="radiogroup" aria-label="Rating out of 5 stars">
+          <span class="star-pick" data-value="1" role="radio" aria-checked="false" tabindex="0">★</span>
+          <span class="star-pick" data-value="2" role="radio" aria-checked="false" tabindex="0">★</span>
+          <span class="star-pick" data-value="3" role="radio" aria-checked="false" tabindex="0">★</span>
+          <span class="star-pick" data-value="4" role="radio" aria-checked="false" tabindex="0">★</span>
+          <span class="star-pick" data-value="5" role="radio" aria-checked="false" tabindex="0">★</span>
+        </div>
+        <div class="rating-feedback-label" id="rating-score-label">Select a score (1 to 5)</div>
+        <p class="text-xs text-muted" id="rating-prevent-note" style="margin-top: 8px;">Each user can submit one rating per recipe.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" id="rating-cancel-btn">Cancel</button>
+        <button type="button" class="btn btn-primary-orange" id="rating-submit-btn" disabled>Submit Rating</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 15. ADD TO COLLECTION MODAL -->
+  <div class="modal-overlay hidden" id="collection-picker-modal" role="dialog" aria-modal="true" aria-labelledby="col-modal-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="col-modal-title">Save to Collection</h3>
+        <button type="button" class="modal-close-btn" id="col-modal-close-btn" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="text-sm text-muted">Select an existing collection or create a new one:</p>
+        <div class="collection-picker-list" id="collection-picker-list">
+          <!-- Populated by script.js -->
+        </div>
+
+        <div class="create-quick-collection-box">
+          <label for="quick-new-col-name" class="font-bold text-sm">Create New Collection:</label>
+          <div class="input-inline-wrap">
+            <input type="text" id="quick-new-col-name" class="form-control" placeholder="e.g. Weekend Recipes">
+            <button type="button" class="btn btn-primary-orange btn-sm" id="quick-create-col-btn">Create &amp; Add</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" id="col-modal-done-btn">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 15. CREATE COLLECTION MODAL (STANDALONE) -->
+  <div class="modal-overlay hidden" id="create-collection-modal" role="dialog" aria-modal="true" aria-labelledby="new-col-modal-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="new-col-modal-title">Create Collection</h3>
+        <button type="button" class="modal-close-btn" id="create-col-modal-close-btn" aria-label="Close modal">&times;</button>
+      </div>
+      <form id="create-collection-form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="new-col-name">Collection Name <span class="required">*</span></label>
+            <input type="text" id="new-col-name" class="form-control" placeholder="e.g. My Favorites, Healthy Recipes, Weekend Recipes..." required>
+          </div>
+          <div class="form-group">
+            <label for="new-col-desc">Description (Optional)</label>
+            <input type="text" id="new-col-desc" class="form-control" placeholder="e.g. Quick dishes for busy weeknights">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" id="cancel-create-col-btn">Cancel</button>
+          <button type="submit" class="btn btn-primary-orange">Create Collection</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 19. ADMIN EDIT RECIPE MODAL -->
+  <div class="modal-overlay hidden" id="admin-edit-recipe-modal" role="dialog" aria-modal="true" aria-labelledby="edit-recipe-modal-title">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <h3 class="modal-title" id="edit-recipe-modal-title">Edit Recipe</h3>
+        <button type="button" class="modal-close-btn" id="edit-modal-close-btn" aria-label="Close modal">&times;</button>
+      </div>
+      <form id="admin-edit-recipe-form">
+        <input type="hidden" id="edit-recipe-id">
+        <div class="modal-body modal-scroll-body">
+          <div class="form-group">
+            <label for="edit-recipe-name">Recipe Name <span class="required">*</span></label>
+            <input type="text" id="edit-recipe-name" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-recipe-desc">Description <span class="required">*</span></label>
+            <textarea id="edit-recipe-desc" class="form-control" rows="2" required></textarea>
+          </div>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="edit-recipe-cuisine">Cuisine <span class="required">*</span></label>
+              <select id="edit-recipe-cuisine" class="form-select" required>
+                <option value="Indian">Indian</option>
+                <option value="Italian">Italian</option>
+                <option value="Chinese">Chinese</option>
+                <option value="Mexican">Mexican</option>
+                <option value="American">American</option>
+                <option value="Mediterranean">Mediterranean</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="edit-recipe-meal">Meal Type <span class="required">*</span></label>
+              <select id="edit-recipe-meal" class="form-select" required>
+                <option value="Breakfast">Breakfast</option>
+                <option value="Lunch">Lunch</option>
+                <option value="Dinner">Dinner</option>
+                <option value="Dessert">Dessert</option>
+                <option value="Snacks">Snacks</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="edit-recipe-diet">Dietary Preference <span class="required">*</span></label>
+              <select id="edit-recipe-diet" class="form-select" required>
+                <option value="Vegetarian">Vegetarian</option>
+                <option value="Vegan">Vegan</option>
+                <option value="Gluten-Free">Gluten-Free</option>
+                <option value="Keto">Keto</option>
+                <option value="Non-Vegetarian">Non-Vegetarian</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="edit-recipe-difficulty">Difficulty <span class="required">*</span></label>
+              <select id="edit-recipe-difficulty" class="form-select" required>
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row-3">
+            <div class="form-group">
+              <label for="edit-recipe-prep">Prep Time (mins) <span class="required">*</span></label>
+              <input type="number" id="edit-recipe-prep" class="form-control" required min="1">
+            </div>
+            <div class="form-group">
+              <label for="edit-recipe-cook">Cook Time (mins) <span class="required">*</span></label>
+              <input type="number" id="edit-recipe-cook" class="form-control" required min="0">
+            </div>
+            <div class="form-group">
+              <label for="edit-recipe-servings">Servings <span class="required">*</span></label>
+              <input type="number" id="edit-recipe-servings" class="form-control" required min="1">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="edit-recipe-image">Image URL <span class="required">*</span></label>
+            <input type="url" id="edit-recipe-image" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-recipe-ingredients">Ingredients (One per line) <span class="required">*</span></label>
+            <textarea id="edit-recipe-ingredients" class="form-control" rows="4" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="edit-recipe-instructions">Cooking Instructions (One per line) <span class="required">*</span></label>
+            <textarea id="edit-recipe-instructions" class="form-control" rows="5" required></textarea>
+            <small class="form-hint">Add an optional duration to a step with “ — 5 min”.</small>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" id="edit-cancel-btn">Cancel</button>
+          <button type="submit" class="btn btn-primary-green">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 20. ADMIN USER SUBMISSION PREVIEW MODAL -->
+  <div class="modal-overlay hidden" id="submission-preview-modal" role="dialog" aria-modal="true" aria-labelledby="sub-preview-modal-title">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <h3 class="modal-title" id="sub-preview-modal-title">Review Submission</h3>
+        <button type="button" class="modal-close-btn" id="sub-preview-close-btn" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body modal-scroll-body" id="sub-preview-modal-body">
+        <!-- Rendered dynamically by script.js -->
+      </div>
+      <div class="modal-footer" id="sub-preview-modal-footer">
+        <!-- Approve / Reject buttons -->
+      </div>
+    </div>
+  </div>
+
+  <!-- USER PROFILE MODAL -->
+  <div class="modal-overlay hidden" id="user-profile-modal" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title">
+    <div class="modal-card modal-sm text-center">
+      <div class="modal-header">
+        <h3 class="modal-title" id="profile-modal-title">My Profile</h3>
+        <button type="button" class="modal-close-btn" id="user-profile-close-btn" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="user-avatar-circle" id="profile-avatar-circle" style="width: 64px; height: 64px; font-size: 1.8rem; margin: 0 auto 12px; background: var(--color-orange);">
+          U
+        </div>
+        <h3 id="profile-fullname" style="font-size: 1.35rem; margin-bottom: 2px;">User Full Name</h3>
+        <p class="text-muted text-sm" id="profile-email">user@example.com</p>
+        <div style="margin: 18px 0; padding: 14px; background: var(--color-cream-light); border-radius: var(--radius-md); border: 1px solid var(--color-border); display: flex; justify-content: space-around;">
+          <div>
+            <span class="text-xs text-muted font-bold" style="display: block; text-transform: uppercase;">Username</span>
+            <strong id="profile-username">foodie</strong>
+          </div>
+          <div style="width: 1px; background: var(--color-border);"></div>
+          <div>
+            <span class="text-xs text-muted font-bold" style="display: block; text-transform: uppercase;">Saved</span>
+            <strong id="profile-saved-count" class="text-orange">0 Recipes</strong>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="justify-content: space-between;">
+        <button type="button" class="btn btn-outline-danger btn-sm" id="profile-logout-btn">Logout</button>
+        <button type="button" class="btn btn-outline-dark btn-sm" id="profile-close-btn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUTH PROMPT MODAL (FOR GUESTS CLICKING SAVE/RATE/COLLECT) -->
+  <div class="modal-overlay hidden" id="auth-prompt-modal" role="dialog" aria-modal="true" aria-labelledby="auth-prompt-title">
+    <div class="modal-card modal-sm text-center">
+      <div class="modal-header">
+        <h3 class="modal-title" id="auth-prompt-title">Login Required</h3>
+        <button type="button" class="modal-close-btn" id="auth-prompt-close-btn" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="margin: 0 auto 16px; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; background: var(--color-orange-light);">
+          🔒
+        </div>
+        <h4 id="auth-prompt-headline" style="font-size: 1.25rem; margin-bottom: 8px;">Please Login to Continue</h4>
+        <p class="text-muted text-sm" id="auth-prompt-message" style="margin-bottom: 24px; line-height: 1.5;">
+          Please login or register to save favorite dishes, rate recipes, and create custom collections.
+        </p>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <a href="#user-login" class="btn btn-primary-orange btn-block" id="auth-prompt-login-btn">User Login</a>
+          <a href="registration.html" class="btn btn-outline-orange btn-block" id="auth-prompt-register-btn">User Registration</a>
+          <button type="button" class="btn btn-outline-dark btn-block btn-sm" id="auth-prompt-cancel-btn">Continue as Guest</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONFIRMATION MODAL -->
+  <div class="modal-overlay hidden" id="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="confirm-modal-title">
+    <div class="modal-card modal-sm">
+      <div class="modal-header">
+        <h3 class="modal-title" id="confirm-modal-title">Please Confirm</h3>
+        <button type="button" class="modal-close-btn" id="confirm-modal-close-btn" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="confirm-modal-message">Are you sure you want to proceed?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" id="confirm-modal-cancel-btn">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirm-modal-ok-btn">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pure Vanilla JavaScript -->
+  <script type="module" src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,3525 @@
+/* ==========================================================================
+   RECIPE HUB - Discover. Cook. Share.
+   Professional, Responsive Styling (Vanilla CSS3)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CSS VARIABLES & DESIGN SYSTEM
+   -------------------------------------------------------------------------- */
+:root {
+  /* Color Palette */
+  --color-cream: #fdfbf7;
+  --color-cream-light: #fffdfa;
+  --color-cream-dark: #f5efe6;
+  --color-cream-border: #ede4d6;
+  
+  --color-orange: #ff6b35;
+  --color-orange-hover: #e85924;
+  --color-orange-dark: #d44917;
+  --color-orange-light: #fff0eb;
+  --color-orange-subtle: #ffe5dc;
+
+  --color-green: #2e7d32;
+  --color-green-hover: #256628;
+  --color-green-dark: #1b5e20;
+  --color-green-light: #e8f5e9;
+  --color-green-subtle: #c8e6c9;
+
+  --color-charcoal: #1e293b;
+  --color-charcoal-dark: #0f172a;
+  --color-charcoal-light: #334155;
+  --color-muted: #64748b;
+  --color-border: #e2e8f0;
+  --color-border-light: #f1f5f9;
+  --color-white: #ffffff;
+
+  --color-gold: #f59e0b;
+  --color-gold-light: #fef3c7;
+  --color-danger: #ef4444;
+  --color-danger-light: #fee2e2;
+  --color-danger-dark: #b91c1c;
+  --color-blue: #3b82f6;
+  --color-blue-light: #dbeafe;
+
+  /* Typography */
+  --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -1px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -2px rgba(15, 23, 42, 0.03);
+  --shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 10px 10px -5px rgba(15, 23, 42, 0.04);
+  --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.06);
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Transition */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+  --transition-slow: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. GLOBAL RESETS & BASE STYLES
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--color-cream);
+  color: var(--color-charcoal);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--color-orange);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-orange-hover);
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.form-max-container {
+  max-width: 860px;
+}
+
+/* --------------------------------------------------------------------------
+   3. UTILITY CLASSES & TYPOGRAPHY
+   -------------------------------------------------------------------------- */
+.text-orange { color: var(--color-orange) !important; }
+.text-green { color: var(--color-green) !important; }
+.text-muted { color: var(--color-muted) !important; }
+.text-sm { font-size: 0.875rem !important; }
+.text-xs { font-size: 0.775rem !important; }
+.text-center { text-align: center; }
+.font-bold { font-weight: 700; }
+.hidden { display: none !important; }
+
+.section-tag {
+  display: inline-block;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-orange);
+  background-color: var(--color-orange-light);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--color-charcoal-dark);
+  line-height: 1.25;
+  margin-bottom: 12px;
+}
+
+.section-subtitle {
+  font-size: 1.05rem;
+  color: var(--color-muted);
+  max-width: 680px;
+  margin: 0 auto 36px;
+}
+
+.section-header {
+  margin-bottom: 40px;
+}
+
+.section-header-flex {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   4. BUTTONS
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  font-size: 0.95rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-lg {
+  padding: 14px 28px;
+  font-size: 1.05rem;
+  border-radius: var(--radius-md);
+}
+
+.btn-sm {
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  border-radius: var(--radius-sm);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn-primary-orange {
+  background-color: var(--color-orange);
+  color: var(--color-white) !important;
+  box-shadow: 0 4px 14px rgba(255, 107, 53, 0.25);
+}
+
+.btn-primary-orange:hover {
+  background-color: var(--color-orange-hover);
+  color: var(--color-white) !important;
+  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-outline-orange {
+  border: 2px solid var(--color-orange);
+  color: var(--color-orange) !important;
+  background-color: transparent;
+}
+
+.btn-outline-orange:hover {
+  background-color: var(--color-orange);
+  color: var(--color-white) !important;
+}
+
+.btn-primary-green {
+  background-color: var(--color-green);
+  color: var(--color-white) !important;
+  box-shadow: 0 4px 14px rgba(46, 125, 50, 0.25);
+}
+
+.btn-primary-green:hover {
+  background-color: var(--color-green-hover);
+  color: var(--color-white) !important;
+  box-shadow: 0 6px 20px rgba(46, 125, 50, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-outline-green {
+  border: 2px solid var(--color-green);
+  color: var(--color-green) !important;
+  background-color: transparent;
+}
+
+.btn-outline-green:hover {
+  background-color: var(--color-green);
+  color: var(--color-white) !important;
+}
+
+.btn-outline-dark {
+  border: 1.5px solid var(--color-border);
+  color: var(--color-charcoal) !important;
+  background-color: var(--color-white);
+}
+
+.btn-outline-dark:hover {
+  border-color: var(--color-charcoal);
+  background-color: var(--color-border-light);
+}
+
+.btn-outline-white {
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  color: var(--color-white) !important;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.btn-outline-white:hover {
+  background-color: var(--color-white);
+  color: var(--color-charcoal) !important;
+}
+
+.btn-outline-danger {
+  border: 1.5px solid var(--color-danger);
+  color: var(--color-danger) !important;
+  background-color: transparent;
+}
+
+.btn-outline-danger:hover {
+  background-color: var(--color-danger);
+  color: var(--color-white) !important;
+}
+
+.btn-danger {
+  background-color: var(--color-danger);
+  color: var(--color-white) !important;
+}
+
+.btn-danger:hover {
+  background-color: var(--color-danger-dark);
+}
+
+/* --------------------------------------------------------------------------
+   5. APP HEADER & NAVIGATION
+   -------------------------------------------------------------------------- */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: rgba(253, 251, 247, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-cream-border);
+  transition: all var(--transition-fast);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 76px;
+}
+
+/* Food-themed Chef Logo */
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logo-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--color-orange), #ff8f00);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  box-shadow: 0 4px 10px rgba(255, 107, 53, 0.3);
+  transition: transform var(--transition-fast);
+}
+
+.brand-logo:hover .logo-icon-wrap {
+  transform: rotate(-6deg) scale(1.05);
+}
+
+.chef-icon {
+  width: 26px;
+  height: 26px;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--color-charcoal-dark);
+  line-height: 1.1;
+}
+
+.brand-tagline {
+  font-size: 0.725rem;
+  font-weight: 600;
+  color: var(--color-orange);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Nav Menu */
+.nav-container {
+  display: flex;
+  align-items: center;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-link {
+  font-size: 0.925rem;
+  font-weight: 600;
+  color: var(--color-charcoal);
+  padding: 8px 13px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: var(--color-orange);
+  background-color: var(--color-orange-light);
+}
+
+.nav-link.active {
+  color: var(--color-orange);
+  background-color: var(--color-orange-subtle);
+}
+
+.nav-btn-item {
+  margin-left: 6px;
+}
+
+.nav-btn {
+  font-size: 0.875rem;
+  padding: 7px 15px;
+}
+
+/* Badges in Nav */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  line-height: 1;
+}
+
+.badge-orange {
+  background-color: var(--color-orange);
+  color: var(--color-white);
+}
+
+.badge-warning {
+  background-color: var(--color-gold);
+  color: var(--color-charcoal-dark);
+}
+
+.user-profile-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px 4px 4px;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.user-profile-nav-link:hover {
+  border-color: var(--color-orange);
+  background-color: var(--color-orange-light);
+}
+
+.admin-profile-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px 4px 4px;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+.user-avatar-circle,
+.admin-avatar-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-orange);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+}
+
+.admin-avatar-circle {
+  background-color: var(--color-green);
+}
+
+.user-name-display,
+.admin-name-display {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--color-charcoal);
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Mobile Hamburger Toggle */
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-cream-dark);
+  border: 1px solid var(--color-cream-border);
+  gap: 5px;
+  cursor: pointer;
+}
+
+.mobile-menu-toggle .bar {
+  width: 22px;
+  height: 2px;
+  background-color: var(--color-charcoal);
+  border-radius: 2px;
+  transition: all var(--transition-fast);
+}
+
+.mobile-menu-toggle.open .bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.mobile-menu-toggle.open .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-toggle.open .bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* --------------------------------------------------------------------------
+   6. SPA VIEW SECTIONS & ROUTING TRANSITIONS
+   -------------------------------------------------------------------------- */
+.main-content {
+  flex: 1;
+}
+
+.view-section {
+  display: none;
+}
+
+.view-section.active {
+  display: block;
+  animation: viewFadeIn 0.2s ease-out;
+}
+
+@keyframes viewFadeIn {
+  from { opacity: 0.85; }
+  to { opacity: 1; }
+}
+
+/* --------------------------------------------------------------------------
+   7. HERO SECTION
+   -------------------------------------------------------------------------- */
+.hero-section {
+  position: relative;
+  padding: 50px 0 70px;
+  overflow: hidden;
+  background: radial-gradient(circle at 10% 20%, rgba(255, 239, 230, 0.6) 0%, transparent 40%),
+              radial-gradient(circle at 90% 80%, rgba(232, 245, 233, 0.5) 0%, transparent 40%);
+}
+
+.hero-bg-shapes .shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.shape-1 {
+  width: 320px;
+  height: 320px;
+  background: rgba(255, 107, 53, 0.12);
+  top: -50px;
+  left: -50px;
+}
+
+.shape-2 {
+  width: 280px;
+  height: 280px;
+  background: rgba(46, 125, 50, 0.1);
+  bottom: 0;
+  right: 10%;
+}
+
+.hero-container {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: 50px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-orange-dark);
+  background-color: var(--color-orange-light);
+  border: 1px solid var(--color-orange-subtle);
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  margin-bottom: 20px;
+}
+
+.hero-badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-orange);
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.3);
+}
+
+.hero-headline {
+  font-family: var(--font-serif);
+  font-size: 3.5rem;
+  line-height: 1.12;
+  font-weight: 700;
+  color: var(--color-charcoal-dark);
+  margin-bottom: 20px;
+}
+
+.hero-description {
+  font-size: 1.15rem;
+  color: var(--color-muted);
+  line-height: 1.6;
+  margin-bottom: 32px;
+  max-width: 540px;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.hero-stats-row {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-cream-border);
+}
+
+.hero-stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-number {
+  font-family: var(--font-serif);
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--color-charcoal-dark);
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-size: 0.825rem;
+  color: var(--color-muted);
+  font-weight: 500;
+}
+
+.hero-stat-divider {
+  width: 1px;
+  height: 36px;
+  background-color: var(--color-cream-border);
+}
+
+/* Hero Visual Column */
+.hero-visual-col {
+  position: relative;
+}
+
+.hero-image-card {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: visible;
+}
+
+.hero-img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  transition: transform var(--transition-slow);
+}
+
+.hero-image-card:hover .hero-img {
+  transform: scale(1.02);
+}
+
+.hero-floating-card {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(10px);
+  padding: 12px 18px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  font-size: 0.875rem;
+}
+
+.floating-icon {
+  font-size: 1.5rem;
+}
+
+.floating-card-1 {
+  top: 30px;
+  left: -20px;
+}
+
+.floating-card-2 {
+  bottom: 30px;
+  right: -20px;
+}
+
+/* --------------------------------------------------------------------------
+   8. FEATURED RECIPES SECTION (ON HOME PAGE)
+   -------------------------------------------------------------------------- */
+.featured-recipes-section {
+  padding: 60px 0;
+  background-color: var(--color-white);
+  border-top: 1px solid var(--color-cream-border);
+  border-bottom: 1px solid var(--color-cream-border);
+}
+
+/* --------------------------------------------------------------------------
+   9. FEATURES SECTION (9 CARDS)
+   -------------------------------------------------------------------------- */
+.features-section {
+  padding: 70px 0;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+.feature-card {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-cream-border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  transition: all var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-orange-subtle);
+}
+
+.feature-icon-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin-bottom: 16px;
+}
+
+.bg-orange-light { background-color: var(--color-orange-light); }
+.bg-green-light { background-color: var(--color-green-light); }
+.bg-yellow-light { background-color: var(--color-gold-light); }
+
+.feature-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-charcoal-dark);
+  margin-bottom: 8px;
+}
+
+.feature-text {
+  font-size: 0.925rem;
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   10. TWO MODULE CARDS SECTION
+   -------------------------------------------------------------------------- */
+.modules-section {
+  padding: 70px 0;
+  background-color: var(--color-cream-light);
+  border-top: 1px solid var(--color-cream-border);
+  border-bottom: 1px solid var(--color-cream-border);
+}
+
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+
+.module-card {
+  background-color: var(--color-white);
+  border: 2px solid var(--color-cream-border);
+  border-radius: var(--radius-xl);
+  padding: 38px;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.module-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: var(--color-orange);
+}
+
+.admin-module-card::before {
+  background: var(--color-green);
+}
+
+.module-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-xl);
+}
+
+.module-card-icon-wrap {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.module-card-icon-wrap.user-theme {
+  background: linear-gradient(135deg, var(--color-orange-light), var(--color-orange-subtle));
+  color: var(--color-orange);
+}
+
+.module-card-icon-wrap.admin-theme {
+  background: linear-gradient(135deg, var(--color-green-light), var(--color-green-subtle));
+  color: var(--color-green);
+}
+
+.module-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-orange);
+  margin-bottom: 6px;
+}
+
+.module-badge.admin-badge {
+  color: var(--color-green);
+}
+
+.module-title {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--color-charcoal-dark);
+  margin-bottom: 12px;
+}
+
+.module-desc {
+  color: var(--color-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+
+.module-features-list {
+  margin-bottom: 30px;
+  flex: 1;
+}
+
+.module-features-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-charcoal-light);
+  font-size: 0.925rem;
+  margin-bottom: 10px;
+}
+
+.user-module-card .module-features-list li svg {
+  color: var(--color-orange);
+  flex-shrink: 0;
+}
+
+.admin-module-card .module-features-list li svg {
+  color: var(--color-green);
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   11. ABOUT SECTION
+   -------------------------------------------------------------------------- */
+.about-section {
+  padding: 70px 0;
+}
+
+.about-container {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.about-img-frame {
+  position: relative;
+}
+
+.about-img {
+  width: 100%;
+  height: 440px;
+  object-fit: cover;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.about-badge-card {
+  position: absolute;
+  bottom: 20px;
+  right: -15px;
+  background-color: var(--color-white);
+  padding: 12px 18px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--color-border);
+}
+
+.chef-hat-badge {
+  font-size: 1.8rem;
+}
+
+.about-paragraph {
+  color: var(--color-muted);
+  font-size: 1.025rem;
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+.about-highlights-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.highlight-item {
+  display: flex;
+  gap: 12px;
+}
+
+.highlight-check {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--color-green-light);
+  color: var(--color-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   12. CONTACT SECTION (KL UNIVERSITY, VADDESWARAM)
+   -------------------------------------------------------------------------- */
+.contact-section {
+  padding: 70px 0;
+  background-color: var(--color-cream-dark);
+}
+
+.contact-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-xl);
+  padding: 46px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 46px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-cream-border);
+}
+
+.contact-desc {
+  color: var(--color-muted);
+  font-size: 1rem;
+  margin-bottom: 26px;
+}
+
+.contact-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.contact-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.contact-info-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-label {
+  font-size: 0.825rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-muted);
+  margin-bottom: 4px;
+}
+
+.contact-location-address {
+  font-size: 1.05rem;
+  color: var(--color-charcoal-dark);
+  line-height: 1.4;
+}
+
+.contact-place-name {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--color-orange-dark);
+}
+
+.contact-form-title {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  color: var(--color-charcoal-dark);
+  margin-bottom: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   13. FOOTER
+   -------------------------------------------------------------------------- */
+.app-footer {
+  background-color: var(--color-charcoal-dark);
+  color: #94a3b8;
+  padding-top: 55px;
+  margin-top: auto;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: 1.3fr 0.8fr 0.9fr 1.2fr;
+  gap: 36px;
+  padding-bottom: 45px;
+}
+
+.footer-logo .brand-name {
+  color: var(--color-white);
+}
+
+.footer-desc {
+  font-size: 0.8875rem;
+  line-height: 1.6;
+  margin-top: 14px;
+  max-width: 320px;
+}
+
+.footer-title {
+  color: var(--color-white);
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.footer-links-col ul li {
+  margin-bottom: 8px;
+}
+
+.footer-links-col ul li a {
+  color: #94a3b8;
+  font-size: 0.8875rem;
+}
+
+.footer-links-col ul li a:hover {
+  color: var(--color-orange);
+}
+
+.demo-pill-footer {
+  margin-top: 10px;
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 20px 0;
+  font-size: 0.85rem;
+}
+
+.footer-bottom-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-back-top a {
+  color: #94a3b8;
+}
+
+.footer-back-top a:hover {
+  color: var(--color-orange);
+}
+
+/* --------------------------------------------------------------------------
+   14. DEDICATED PUBLIC RECIPES & RECIPE GRID SYSTEM
+   -------------------------------------------------------------------------- */
+.recipes-browsing-section {
+  padding: 40px 0 80px;
+}
+
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 28px;
+}
+
+/* RECIPE CARD */
+.recipe-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+  transition: all var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.recipe-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--color-orange-subtle);
+}
+
+.recipe-card-media {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background-color: var(--color-border-light);
+}
+
+.recipe-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.recipe-card:hover .recipe-card-img {
+  transform: scale(1.05);
+}
+
+/* Diet / Cuisine badges over image */
+.recipe-card-badges {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  z-index: 2;
+}
+
+.recipe-tag {
+  font-size: 0.725rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(6px);
+}
+
+.tag-cuisine {
+  background-color: rgba(30, 41, 59, 0.85);
+  color: var(--color-white);
+}
+
+.tag-diet {
+  background-color: rgba(46, 125, 50, 0.9);
+  color: var(--color-white);
+}
+
+.tag-meal {
+  background-color: rgba(255, 107, 53, 0.9);
+  color: var(--color-white);
+}
+
+/* Save / Heart Button */
+.btn-save-recipe {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-charcoal);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-fast);
+  z-index: 2;
+  cursor: pointer;
+}
+
+.btn-save-recipe:hover {
+  transform: scale(1.1);
+  background-color: var(--color-white);
+}
+
+.btn-save-recipe.saved {
+  background-color: var(--color-danger);
+  color: var(--color-white);
+}
+
+.btn-save-recipe svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  transition: fill var(--transition-fast);
+}
+
+.btn-save-recipe.saved svg {
+  fill: var(--color-white);
+  stroke: var(--color-white);
+}
+
+/* Recipe Card Body */
+.recipe-card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.recipe-card-title {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-charcoal-dark);
+  margin-bottom: 8px;
+  line-height: 1.25;
+}
+
+.recipe-card-desc {
+  font-size: 0.8875rem;
+  color: var(--color-muted);
+  line-height: 1.55;
+  margin-bottom: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.recipe-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-top: 1px solid var(--color-border-light);
+  border-bottom: 1px solid var(--color-border-light);
+  margin-bottom: 16px;
+  font-size: 0.8125rem;
+  color: var(--color-charcoal-light);
+}
+
+.recipe-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.recipe-rating-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+  color: var(--color-gold);
+}
+
+.recipe-rating-badge .star-icon {
+  font-size: 1rem;
+}
+
+.recipe-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.recipe-card-footer .btn {
+  flex: 1;
+}
+
+/* --------------------------------------------------------------------------
+   15. SEARCH & FILTER TOOLBAR
+   -------------------------------------------------------------------------- */
+.search-filter-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-xl);
+  padding: 26px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-cream-border);
+  margin-bottom: 34px;
+}
+
+.search-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.search-input-box {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 16px;
+  color: var(--color-muted);
+}
+
+.search-input {
+  width: 100%;
+  padding: 13px 44px 13px 50px;
+  font-size: 1.025rem;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--color-border);
+  background-color: var(--color-cream-light);
+  color: var(--color-charcoal);
+  transition: all var(--transition-fast);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--color-orange);
+  background-color: var(--color-white);
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.12);
+}
+
+.search-clear-btn {
+  position: absolute;
+  right: 14px;
+  font-size: 1.5rem;
+  color: var(--color-muted);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.search-clear-btn:hover {
+  color: var(--color-charcoal);
+}
+
+.search-action-btn {
+  padding: 13px 26px;
+  font-size: 0.98rem;
+}
+
+/* Ingredient specific search */
+.ingredient-search-row {
+  background-color: var(--color-green-light);
+  border: 1px solid var(--color-green-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.ingredient-badge-lead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--color-green-dark);
+}
+
+.ingredient-input-wrap {
+  flex: 1;
+  min-width: 240px;
+}
+
+.ingredient-input {
+  width: 100%;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--color-green-subtle);
+  background-color: var(--color-white);
+}
+
+.ingredient-input:focus {
+  outline: none;
+  border-color: var(--color-green);
+}
+
+/* Filter Dropdowns Row */
+.filter-dropdowns-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+}
+
+.filter-select-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+  margin-bottom: 6px;
+}
+
+.active-filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.filter-pill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--color-orange-light);
+  color: var(--color-orange-dark);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.filter-pill-tag button {
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--color-orange-dark);
+}
+
+.results-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.results-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-charcoal-dark);
+}
+
+.results-count {
+  color: var(--color-orange);
+  font-weight: 800;
+}
+
+/* --------------------------------------------------------------------------
+   16. USER DASHBOARD STYLES
+   -------------------------------------------------------------------------- */
+.dashboard-section {
+  padding: 36px 0 80px;
+}
+
+.dashboard-welcome-banner {
+  background: linear-gradient(135deg, var(--color-charcoal-dark), #1e3a2f);
+  color: var(--color-white);
+  border-radius: var(--radius-xl);
+  padding: 34px 38px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-lg);
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.welcome-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #a7f3d0;
+  margin-bottom: 6px;
+}
+
+.welcome-heading {
+  font-family: var(--font-serif);
+  font-size: 2.1rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.welcome-subtext {
+  color: #cbd5e1;
+  font-size: 1rem;
+  max-width: 580px;
+}
+
+.welcome-actions-col {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dashboard-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-bottom: 34px;
+}
+
+.dash-stat-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-normal);
+}
+
+.dash-stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-orange-subtle);
+}
+
+.dash-stat-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 14px;
+}
+
+.dash-stat-info {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.dash-stat-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-muted);
+}
+
+.dash-stat-num {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-charcoal-dark);
+  line-height: 1.2;
+}
+
+.dash-stat-link {
+  margin-top: auto;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-orange);
+}
+
+.dashboard-section-block {
+  margin-top: 24px;
+}
+
+/* --------------------------------------------------------------------------
+   17. RECIPE DETAILS VIEW
+   -------------------------------------------------------------------------- */
+.details-section {
+  padding: 28px 0 80px;
+}
+
+.details-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.details-quick-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.recipe-detail-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-cream-border);
+}
+
+.recipe-detail-hero {
+  position: relative;
+  width: 100%;
+  height: 400px;
+}
+
+.recipe-detail-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.recipe-detail-hero-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 36px;
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.92) 0%, rgba(15, 23, 42, 0.45) 60%, transparent 100%);
+  color: var(--color-white);
+}
+
+.recipe-detail-hero-badges {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.recipe-detail-hero-title {
+  font-family: var(--font-serif);
+  font-size: 2.7rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+
+.recipe-detail-hero-desc {
+  font-size: 1.125rem;
+  color: #e2e8f0;
+  max-width: 800px;
+}
+
+/* Specs Bar */
+.recipe-specs-bar {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  background-color: var(--color-cream-dark);
+  border-bottom: 1px solid var(--color-cream-border);
+  padding: 18px;
+  text-align: center;
+}
+
+.spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.spec-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-muted);
+}
+
+.spec-val {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-charcoal-dark);
+}
+
+/* Detail Main Body: 2 Columns */
+.recipe-detail-body {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  padding: 38px;
+  gap: 46px;
+}
+
+.ingredients-box,
+.instructions-box {
+  background-color: var(--color-cream-light);
+  border: 1px solid var(--color-cream-border);
+  border-radius: var(--radius-lg);
+  padding: 26px;
+}
+
+.serving-control {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin-bottom: 12px;
+}
+
+.serving-control label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-charcoal-dark);
+}
+
+.serving-control-inputs {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.serving-adjust-btn {
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--color-cream-border);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-charcoal-dark);
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.serving-adjust-btn:hover {
+  border-color: var(--color-orange);
+  color: var(--color-orange);
+}
+
+.serving-adjust-btn:focus-visible,
+#recipe-serving-input:focus-visible {
+  outline: 3px solid rgba(255, 107, 53, 0.3);
+  outline-offset: 2px;
+}
+
+#recipe-serving-input {
+  width: 72px;
+  height: 38px;
+  padding: 6px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-white);
+  color: var(--color-charcoal-dark);
+  font: inherit;
+  text-align: center;
+}
+
+#recipe-serving-input[aria-invalid="true"] {
+  border-color: var(--color-danger);
+}
+
+.serving-error {
+  flex-basis: 100%;
+  color: var(--color-danger);
+  font-size: 0.8rem;
+}
+
+.serving-error:empty {
+  display: none;
+}
+
+.ingredient-instruction {
+  margin-bottom: 14px;
+}
+
+.detail-section-title {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-charcoal-dark);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ingredients-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ingredient-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 0.95rem;
+  color: var(--color-charcoal);
+  cursor: pointer;
+  user-select: none;
+}
+
+.ingredient-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-orange);
+  margin-top: 3px;
+  cursor: pointer;
+}
+
+.ingredient-item.checked {
+  text-decoration: line-through;
+  color: var(--color-muted);
+}
+
+/* Instructions List */
+.instructions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.instruction-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.step-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.step-number {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--color-orange-light);
+  color: var(--color-orange);
+  font-weight: 800;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.step-text {
+  font-size: 1.025rem;
+  line-height: 1.65;
+  color: var(--color-charcoal-light);
+  padding-top: 4px;
+}
+
+.step-duration {
+  display: inline-block;
+  margin-top: 5px;
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-orange-light);
+  color: var(--color-orange);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+/* Rating prompt inline card */
+.inline-rate-card {
+  margin-top: 34px;
+  background: linear-gradient(135deg, var(--color-gold-light), #fffbeb);
+  border: 1px solid #fde68a;
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.inline-rate-text h4 {
+  font-size: 1.15rem;
+  color: var(--color-charcoal-dark);
+  margin-bottom: 4px;
+}
+
+.inline-rate-text p {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+/* --------------------------------------------------------------------------
+   18. SAVED RECIPES & COLLECTIONS
+   -------------------------------------------------------------------------- */
+.section-page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.collections-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 26px;
+}
+
+.collection-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1.5px solid var(--color-border);
+  transition: all var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+}
+
+.collection-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-orange-subtle);
+}
+
+.collection-card-header {
+  padding: 22px 22px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.collection-icon-badge {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-md);
+  background-color: var(--color-orange-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.collection-count-badge {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-muted);
+  background-color: var(--color-border-light);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+
+.collection-card-body {
+  padding: 10px 22px 22px;
+  flex: 1;
+}
+
+.collection-title {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-charcoal-dark);
+  margin-bottom: 6px;
+}
+
+.collection-desc {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  margin-bottom: 18px;
+}
+
+.collection-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.collection-card-actions .btn {
+  flex: 1;
+}
+
+.collection-drilldown-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--color-cream-border);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.drilldown-title-box {
+  flex: 1;
+  margin: 0 18px;
+}
+
+.drilldown-title {
+  font-family: var(--font-serif);
+  font-size: 1.95rem;
+  color: var(--color-charcoal-dark);
+}
+
+.drilldown-desc {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+/* --------------------------------------------------------------------------
+   19. AUTHENTICATION PAGES (USER & ADMIN LOGIN/REGISTER)
+   -------------------------------------------------------------------------- */
+.auth-section {
+  padding: 50px 0 70px;
+  min-height: calc(100vh - 180px);
+  display: flex;
+  align-items: center;
+}
+
+.auth-container {
+  max-width: 480px;
+}
+
+.auth-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-xl);
+  padding: 38px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-cream-border);
+}
+
+.admin-auth-card {
+  border-top: 5px solid var(--color-green);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.auth-icon-wrap {
+  width: 54px;
+  height: 54px;
+  border-radius: var(--radius-lg);
+  margin: 0 auto 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-icon-wrap.user-theme {
+  background-color: var(--color-orange-light);
+  color: var(--color-orange);
+}
+
+.auth-icon-wrap.admin-theme {
+  background-color: var(--color-green-light);
+  color: var(--color-green);
+}
+
+.auth-title {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  color: var(--color-charcoal-dark);
+  margin-bottom: 6px;
+}
+
+.auth-subtitle {
+  font-size: 0.925rem;
+  color: var(--color-muted);
+  line-height: 1.5;
+}
+
+.demo-helper-box {
+  background-color: var(--color-orange-light);
+  border: 1px dashed var(--color-orange);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8125rem;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.admin-demo-helper {
+  background-color: var(--color-green-light);
+  border-color: var(--color-green);
+}
+
+.demo-helper-box code {
+  font-weight: 700;
+  color: var(--color-charcoal-dark);
+}
+
+.btn-demo-fill {
+  background-color: var(--color-orange);
+  color: var(--color-white);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  transition: opacity var(--transition-fast);
+  cursor: pointer;
+}
+
+.admin-fill-btn {
+  background-color: var(--color-green);
+}
+
+.btn-demo-fill:hover {
+  opacity: 0.9;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--color-border);
+  font-size: 0.9rem;
+}
+
+.auth-footer p {
+  margin-bottom: 6px;
+}
+
+/* --------------------------------------------------------------------------
+   20. FORMS & INPUTS
+   -------------------------------------------------------------------------- */
+.form-group {
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-charcoal);
+  margin-bottom: 6px;
+}
+
+.required {
+  color: var(--color-danger);
+}
+
+.form-control,
+.form-select {
+  width: 100%;
+  padding: 11px 14px;
+  font-size: 0.95rem;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-border);
+  background-color: var(--color-cream-light);
+  color: var(--color-charcoal);
+  transition: all var(--transition-fast);
+}
+
+.form-control:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--color-orange);
+  background-color: var(--color-white);
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15);
+}
+
+.admin-section .form-control:focus,
+.admin-section .form-select:focus {
+  border-color: var(--color-green);
+  box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
+}
+
+.input-password-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-password-btn {
+  position: absolute;
+  right: 12px;
+  font-size: 1.1rem;
+  color: var(--color-muted);
+  cursor: pointer;
+}
+
+.field-error {
+  display: block;
+  font-size: 0.775rem;
+  color: var(--color-danger);
+  margin-top: 4px;
+  min-height: 16px;
+}
+
+.form-hint {
+  display: block;
+  font-size: 0.775rem;
+  color: var(--color-muted);
+  margin-top: 4px;
+}
+
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-row-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+.form-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 26px;
+}
+
+.form-page-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-xl);
+  padding: 38px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-cream-border);
+  margin: 36px auto;
+}
+
+.form-page-header {
+  margin-bottom: 28px;
+}
+
+.form-page-title {
+  font-family: var(--font-serif);
+  font-size: 2.15rem;
+  color: var(--color-charcoal-dark);
+  margin-bottom: 6px;
+}
+
+.form-page-subtitle {
+  color: var(--color-muted);
+  font-size: 1rem;
+}
+
+.image-input-wrap {
+  display: flex;
+  gap: 10px;
+}
+
+.image-preview-box {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.image-preview-thumb {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}
+
+/* --------------------------------------------------------------------------
+   21. ADMIN DASHBOARD & TABLES
+   -------------------------------------------------------------------------- */
+.admin-section {
+  padding: 36px 0 80px;
+}
+
+.admin-badge-pill {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-green);
+  background-color: var(--color-green-light);
+  border: 1px solid var(--color-green-subtle);
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+  margin-bottom: 8px;
+}
+
+.admin-dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.admin-heading {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--color-charcoal-dark);
+}
+
+.admin-subtext {
+  color: var(--color-muted);
+  font-size: 1.025rem;
+}
+
+.admin-header-actions {
+  display: flex;
+  gap: 12px;
+}
+
+/* STATS GRID */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  margin-bottom: 34px;
+}
+
+.stat-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-xl);
+  padding: 22px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  transition: all var(--transition-fast);
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.stat-card-icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stat-icon-orange { background-color: var(--color-orange-light); color: var(--color-orange); }
+.stat-icon-blue { background-color: var(--color-blue-light); color: var(--color-blue); }
+.stat-icon-yellow { background-color: var(--color-gold-light); color: var(--color-gold); }
+.stat-icon-red { background-color: var(--color-danger-light); color: var(--color-danger); }
+
+.stat-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-card-title {
+  font-size: 0.775rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--color-muted);
+  text-transform: uppercase;
+}
+
+.stat-card-value {
+  font-family: var(--font-serif);
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: var(--color-charcoal-dark);
+  line-height: 1.1;
+  margin: 4px 0;
+}
+
+.stat-card-footnote {
+  font-size: 0.775rem;
+  color: var(--color-muted);
+}
+
+.admin-dash-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+}
+
+.admin-panel-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-xl);
+  padding: 26px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+}
+
+.admin-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.admin-panel-header h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-charcoal-dark);
+}
+
+/* TABLES */
+.admin-table-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.table-search-box {
+  max-width: 380px;
+  flex: 1;
+}
+
+.select-inline {
+  width: auto;
+  min-width: 180px;
+}
+
+.table-responsive-wrapper {
+  background-color: var(--color-white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.925rem;
+}
+
+.data-table th {
+  background-color: var(--color-cream-light);
+  color: var(--color-muted);
+  font-size: 0.775rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 16px 20px;
+  border-bottom: 1.5px solid var(--color-border);
+}
+
+.data-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--color-border-light);
+  vertical-align: middle;
+  color: var(--color-charcoal-light);
+}
+
+.data-table tr:last-child td {
+  border-bottom: none;
+}
+
+.data-table tr:hover td {
+  background-color: var(--color-cream-light);
+}
+
+.table-thumb {
+  width: 52px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+}
+
+.table-actions-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Status Badges */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.status-badge.approved,
+.status-badge.active {
+  background-color: var(--color-green-light);
+  color: var(--color-green-dark);
+}
+
+.status-badge.pending {
+  background-color: var(--color-gold-light);
+  color: #b45309;
+}
+
+.status-badge.rejected {
+  background-color: var(--color-danger-light);
+  color: var(--color-danger-dark);
+}
+
+.status-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.submissions-filter-pills {
+  display: flex;
+  gap: 8px;
+  background-color: var(--color-white);
+  padding: 4px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+}
+
+.pill-btn {
+  padding: 6px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  color: var(--color-muted);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.pill-btn.active {
+  background-color: var(--color-green);
+  color: var(--color-white);
+}
+
+/* --------------------------------------------------------------------------
+   22. ADMIN RATINGS & REVIEWS CSS VISUAL BARS
+   -------------------------------------------------------------------------- */
+.ratings-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 26px;
+}
+
+.admin-rating-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1.5px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-rating-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  gap: 12px;
+}
+
+.admin-rating-title {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-charcoal-dark);
+}
+
+.admin-rating-score-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.admin-rating-avg {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--color-gold);
+  line-height: 1;
+}
+
+.admin-rating-count {
+  font-size: 0.775rem;
+  color: var(--color-muted);
+}
+
+.rating-distribution-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.rating-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.8125rem;
+}
+
+.rating-star-label {
+  width: 55px;
+  color: var(--color-charcoal);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.rating-progress-track {
+  flex: 1;
+  height: 10px;
+  background-color: var(--color-border-light);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.rating-progress-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+  transition: width 0.5s ease;
+}
+
+.rating-percent-label {
+  width: 42px;
+  text-align: right;
+  color: var(--color-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   23. MODALS
+   -------------------------------------------------------------------------- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-xl);
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+}
+
+.modal-lg {
+  max-width: 760px;
+}
+
+.modal-sm {
+  max-width: 420px;
+}
+
+.modal-header {
+  padding: 18px 26px;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-title {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-charcoal-dark);
+}
+
+.modal-close-btn {
+  font-size: 1.8rem;
+  line-height: 1;
+  color: var(--color-muted);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.modal-close-btn:hover {
+  background-color: var(--color-border-light);
+  color: var(--color-charcoal-dark);
+}
+
+.modal-body {
+  padding: 22px 26px;
+  overflow-y: auto;
+}
+
+.modal-scroll-body {
+  max-height: calc(90vh - 160px);
+}
+
+.modal-footer {
+  padding: 16px 26px;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  background-color: var(--color-cream-light);
+}
+
+/* Interactive Star Rating Widget */
+.interactive-star-rating {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  font-size: 2.8rem;
+  margin: 18px 0 10px;
+  cursor: pointer;
+}
+
+.star-pick {
+  color: var(--color-border);
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.star-pick:hover,
+.star-pick.hovered,
+.star-pick.selected {
+  color: var(--color-gold);
+  transform: scale(1.15);
+}
+
+.rating-feedback-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-orange);
+  min-height: 24px;
+}
+
+/* Collection Picker List */
+.collection-picker-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.col-picker-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-border);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.col-picker-item:hover {
+  border-color: var(--color-orange);
+  background-color: var(--color-orange-light);
+}
+
+.col-picker-item.in-collection {
+  background-color: var(--color-green-light);
+  border-color: var(--color-green);
+}
+
+.create-quick-collection-box {
+  background-color: var(--color-cream-dark);
+  padding: 14px;
+  border-radius: var(--radius-md);
+}
+
+.input-inline-wrap {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   24. TOAST NOTIFICATIONS
+   -------------------------------------------------------------------------- */
+.toast-container {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  background-color: var(--color-charcoal-dark);
+  color: var(--color-white);
+  padding: 14px 20px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.925rem;
+  font-weight: 500;
+  min-width: 300px;
+  max-width: 420px;
+  animation: toastSlideIn 0.3s ease-out;
+  border-left: 5px solid var(--color-orange);
+}
+
+.toast.toast-success {
+  border-left-color: var(--color-green);
+}
+
+.toast.toast-error {
+  border-left-color: var(--color-danger);
+}
+
+.toast.toast-info {
+  border-left-color: var(--color-blue);
+}
+
+@keyframes toastSlideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.toast-hide {
+  animation: toastSlideOut 0.3s ease forwards;
+}
+
+@keyframes toastSlideOut {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(100%); opacity: 0; }
+}
+
+/* --------------------------------------------------------------------------
+   25. EMPTY STATE STYLING
+   -------------------------------------------------------------------------- */
+.empty-state-box {
+  text-align: center;
+  padding: 60px 20px;
+  max-width: 520px;
+  margin: 30px auto;
+  background-color: var(--color-white);
+  border-radius: var(--radius-xl);
+  border: 1.5px dashed var(--color-cream-border);
+}
+
+.empty-icon {
+  font-size: 3.5rem;
+  margin-bottom: 16px;
+}
+
+.empty-state-box h3 {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--color-charcoal-dark);
+  margin-bottom: 8px;
+}
+
+.empty-state-box p {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  margin-bottom: 22px;
+}
+
+/* --------------------------------------------------------------------------
+   26. RESPONSIVE DESIGN & MEDIA QUERIES (IMPROVED BREAKPOINTS)
+   -------------------------------------------------------------------------- */
+
+/* Tablet & Smaller Laptops (<= 1024px) */
+@media (max-width: 1024px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .hero-visual-col {
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  .about-container {
+    grid-template-columns: 1fr;
+  }
+
+  .modules-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .filter-dropdowns-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .admin-dash-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .recipe-detail-body {
+    grid-template-columns: 1fr;
+  }
+
+  .recipe-specs-bar {
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 16px;
+  }
+
+  .dashboard-stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tablet & Mobile Breakpoint for Navigation (<= 768px) */
+@media (max-width: 768px) {
+  .header-inner {
+    height: auto;
+    flex-wrap: wrap;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .mobile-menu-toggle {
+    display: none;
+  }
+
+  .nav-container {
+    position: static;
+    width: 100%;
+    display: block;
+    padding: 8px 0 0;
+  }
+
+  .nav-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .nav-btn-item {
+    margin-left: 0;
+    margin-top: 4px;
+  }
+
+  .nav-btn {
+    width: 100%;
+  }
+
+  .user-profile-nav-link,
+  .admin-profile-badge {
+    justify-content: center;
+  }
+}
+
+/* Small Screens (<= 768px) */
+@media (max-width: 768px) {
+  .hero-headline {
+    font-size: 2.6rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-card {
+    grid-template-columns: 1fr;
+    padding: 30px 20px;
+  }
+
+  .search-bar-wrap {
+    flex-direction: column;
+  }
+
+  .search-action-btn {
+    width: 100%;
+  }
+
+  .filter-dropdowns-row {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row-2,
+  .form-row-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .recipe-specs-bar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .recipe-detail-body {
+    padding: 24px;
+    gap: 20px;
+  }
+
+  .ingredients-box,
+  .instructions-box {
+    padding: 20px;
+  }
+
+  .recipe-detail-hero {
+    height: 300px;
+  }
+
+  .recipe-detail-hero-title {
+    font-size: 2rem;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
+
+  .toast-container {
+    left: 20px;
+    right: 20px;
+    top: 16px;
+  }
+
+  .toast {
+    min-width: 100%;
+  }
+}
+
+/* ==========================================================================
+   ENHANCED STYLES: FOOD HERO BANNER SLIDER, REGISTRATION & INGREDIENT SEARCH
+   ========================================================================== */
+
+/* 2. CHANGING FOOD HERO BANNER / SLIDER */
+.hero-slider-section {
+  position: relative;
+  width: 100%;
+  height: 560px;
+  overflow: hidden;
+  background-color: var(--color-charcoal-dark);
+}
+
+.slider-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+  transform: scale(1.04);
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
+
+.hero-slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  z-index: 2;
+}
+
+.slide-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(15, 23, 42, 0.88) 0%, rgba(15, 23, 42, 0.65) 60%, rgba(15, 23, 42, 0.45) 100%);
+  z-index: 1;
+}
+
+.slide-content-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.slide-content {
+  max-width: 680px;
+  color: var(--color-white);
+  padding: 40px 0;
+  animation: slideContentUp 0.8s ease-out;
+}
+
+@keyframes slideContentUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 107, 53, 0.25);
+  border: 1px solid rgba(255, 107, 53, 0.5);
+  color: #ff9e7d;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  margin-bottom: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.slide-title {
+  font-family: var(--font-serif);
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  color: var(--color-white);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.slide-desc {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: #e2e8f0;
+  margin-bottom: 28px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.slide-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Slider Controls: Arrows & Dots */
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all var(--transition-fast);
+}
+
+.slider-arrow:hover {
+  background: var(--color-orange);
+  border-color: var(--color-orange);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+}
+
+.slider-arrow-prev {
+  left: 24px;
+}
+
+.slider-arrow-next {
+  right: 24px;
+}
+
+.slider-dots {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 10;
+}
+
+.slider-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.4);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.slider-dot:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.slider-dot.active {
+  width: 32px;
+  background: var(--color-orange);
+  box-shadow: 0 0 10px rgba(255, 107, 53, 0.6);
+}
+
+/* 14. INGREDIENT SEARCH AREA */
+.ingredient-search-box {
+  background: var(--color-cream-light);
+  border: 1.5px solid var(--color-cream-border);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ingredient-search-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ingredient-search-icon {
+  font-size: 1.5rem;
+}
+
+.ingredient-search-input-row {
+  display: flex;
+  gap: 12px;
+}
+
+.ingredient-search-input-row .form-control {
+  flex: 1;
+}
+
+/* MODULE CARD ACTION BUTTONS */
+.module-card-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.module-card-buttons .btn {
+  flex: 1;
+  text-align: center;
+  justify-content: center;
+}
+
+/* 6. REGISTRATION PAGE SPECIFIC STYLES (registration.html) */
+.auth-page-body {
+  background: radial-gradient(circle at 10% 20%, rgba(255, 239, 230, 0.6) 0%, transparent 40%),
+              radial-gradient(circle at 90% 80%, rgba(232, 245, 233, 0.5) 0%, transparent 40%),
+              var(--color-cream);
+  min-height: 100vh;
+}
+
+.auth-navbar {
+  background-color: rgba(253, 251, 247, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-cream-border);
+  padding: 14px 0;
+}
+
+.auth-navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.auth-page-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.auth-logo-badge {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--color-orange), #ff8f00);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  margin: 0 auto 16px;
+  box-shadow: 0 6px 16px rgba(255, 107, 53, 0.35);
+}
+
+.chef-icon-lg {
+  width: 34px;
+  height: 34px;
+}
+
+.auth-role-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  background-color: var(--color-cream-dark);
+  padding: 5px;
+  border-radius: var(--radius-md);
+  margin-bottom: 22px;
+}
+
+.role-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.role-tab.active {
+  background-color: var(--color-white);
+  color: var(--color-charcoal-dark);
+  box-shadow: var(--shadow-sm);
+}
+
+.alert-box {
+  display: flex;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.alert-success {
+  background-color: var(--color-green-light);
+  border: 1px solid var(--color-green-subtle);
+  color: var(--color-green-dark);
+}
+
+.alert-danger {
+  background-color: var(--color-danger-light);
+  border: 1px solid #fecaca;
+  color: var(--color-danger-dark);
+}
+
+.alert-icon {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.alert-content h4 {
+  font-size: 0.975rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.modal-xl {
+  max-width: 900px;
+  width: 95%;
+}
+
+@media (max-width: 768px) {
+  .hero-slider-section {
+    height: 480px;
+  }
+  .slide-title {
+    font-size: 2.2rem;
+  }
+  .slide-desc {
+    font-size: 1rem;
+  }
+  .slider-arrow {
+    width: 38px;
+    height: 38px;
+  }
+  .slider-arrow-prev {
+    left: 10px;
+  }
+  .slider-arrow-next {
+    right: 10px;
+  }
+  .ingredient-search-input-row {
+    flex-direction: column;
+  }
+  .module-card-buttons {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create Your Recipe Hub Account - Discover, Cook, and Share delicious food recipes.">
+  <title>Create Account - Recipe Hub</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Fonts for modern typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+</head>
+<body class="auth-page-body">
+
+  <!-- Floating Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Registration Header with Brand Logo -->
+  <header class="auth-navbar">
+    <div class="container auth-navbar-inner">
+      <a href="sample.html#home" class="brand-logo" aria-label="Recipe Hub Home">
+        <div class="logo-icon-wrap">
+          <svg class="chef-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/>
+            <line x1="6" y1="17" x2="18" y2="17"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">Recipe Hub</span>
+          <span class="brand-tagline">Discover. Cook. Share.</span>
+        </div>
+      </a>
+      <a href="sample.html#home" class="btn btn-outline-dark btn-sm">&larr; Back to Home</a>
+    </div>
+  </header>
+
+  <!-- Registration Card Container -->
+  <main class="auth-page-main">
+    <div class="container auth-container">
+      <div class="auth-card" id="registration-card">
+        
+        <!-- Recipe Hub Logo -->
+        <div class="auth-header text-center">
+          <div class="auth-logo-badge">
+            <svg class="chef-icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/>
+              <line x1="6" y1="17" x2="18" y2="17"/>
+            </svg>
+          </div>
+          <h1 class="auth-title" id="registration-title">Create Your Recipe Hub Account</h1>
+          <p class="auth-subtitle" id="registration-subtitle">
+            Join Recipe Hub to discover recipes, search by kitchen ingredients, save favorites, rate dishes, and organize custom collections.
+          </p>
+        </div>
+
+        <!-- Dynamic Success Message Alert (Initially Hidden) -->
+        <div class="alert-box alert-success hidden" id="registration-success-alert">
+          <div class="alert-icon">✅</div>
+          <div class="alert-content">
+            <h4 id="success-alert-title">Account Created Successfully!</h4>
+            <p id="success-alert-message">Welcome to Recipe Hub. You can now login with your credentials.</p>
+            <div style="margin-top: 10px;">
+              <a href="sample.html#user-login" class="btn btn-primary-orange btn-sm" id="success-login-redirect-btn">
+                Proceed to Login &rarr;
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Error Message Alert (Initially Hidden) -->
+        <div class="alert-box alert-danger hidden" id="registration-error-alert">
+          <div class="alert-icon">⚠️</div>
+          <div class="alert-content">
+            <h4 id="error-alert-title">Registration Error</h4>
+            <p id="error-alert-message">Please correct the highlighted fields below.</p>
+          </div>
+        </div>
+
+        <!-- 6. REGISTRATION FORM -->
+        <form id="standalone-register-form" novalidate>
+          <input type="hidden" id="selected-role" value="user">
+
+          <!-- Full Name -->
+          <div class="form-group">
+            <label for="reg-fullname">Full Name <span class="required">*</span></label>
+            <input type="text" id="reg-fullname" class="form-control" placeholder="e.g. Alex Morgan" required autocomplete="name">
+            <span class="field-error" id="reg-fullname-error"></span>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="reg-email">Email <span class="required">*</span></label>
+            <input type="email" id="reg-email" class="form-control" placeholder="e.g. alex@example.com" required autocomplete="email">
+            <span class="field-error" id="reg-email-error"></span>
+          </div>
+
+          <!-- Username -->
+          <div class="form-group">
+            <label for="reg-username">Username <span class="required">*</span></label>
+            <input type="text" id="reg-username" class="form-control" placeholder="Choose a unique username" required autocomplete="username">
+            <span class="field-error" id="reg-username-error"></span>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label for="reg-password">Password <span class="required">*</span></label>
+            <div class="input-password-wrap">
+              <input type="password" id="reg-password" class="form-control" placeholder="At least 6 characters" required autocomplete="new-password">
+              <button type="button" class="toggle-password-btn" data-target="reg-password" aria-label="Toggle password visibility">👁️</button>
+            </div>
+            <span class="field-error" id="reg-password-error"></span>
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="form-group">
+            <label for="reg-confirm">Confirm Password <span class="required">*</span></label>
+            <div class="input-password-wrap">
+              <input type="password" id="reg-confirm" class="form-control" placeholder="Re-type password" required autocomplete="new-password">
+              <button type="button" class="toggle-password-btn" data-target="reg-confirm" aria-label="Toggle password visibility">👁️</button>
+            </div>
+            <span class="field-error" id="reg-confirm-error"></span>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-primary-orange btn-block btn-lg" id="create-account-btn">
+            Create Account
+          </button>
+        </form>
+
+        <!-- Footer Link: Already have an account? Login -->
+        <div class="auth-footer text-center">
+          <p>
+            Already have an account? 
+            <a href="sample.html#user-login" class="text-orange font-bold" id="auth-footer-login-link">Login</a>
+          </p>
+          <p style="margin-top: 8px;">
+            <a href="sample.html#home">&larr; Return to Home Page</a>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Pure Vanilla JavaScript -->
+  <script type="module" src="script.js"></script>
+</body>
+</html>
